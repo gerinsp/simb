@@ -59,6 +59,12 @@ $route['blocked']    = 'auth/blocked';
 //Routes Mekanik
 $route['listmekanik']                          = 'mekanik/listmekanik';
 
+//Route Booking
+$route['booking']                              = 'booking/booking';
+$route['detail-booking']                       = 'booking/detail_booking';
+$route['save']                                 = 'booking/save';
+$route['upload-pembayaran']                    = 'booking/upload_pembayaran';
+
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';
 
