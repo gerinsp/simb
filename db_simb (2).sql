@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2023 at 04:47 PM
+-- Generation Time: Nov 09, 2023 at 07:11 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 5.6.40
 
@@ -36,10 +36,18 @@ CREATE TABLE `tbl_booking` (
   `id_tipe_service` int(11) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
   `is_delivery` tinyint(1) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
   `id_user` int(11) NOT NULL,
   `down_payment_image` longtext NOT NULL,
   `id_status_booking` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_booking`
+--
+
+INSERT INTO `tbl_booking` (`id_booking`, `tanggal`, `tipe_kendaraan`, `plat_nomor`, `id_tipe_service`, `deskripsi`, `is_delivery`, `alamat`, `id_user`, `down_payment_image`, `id_status_booking`) VALUES
+(1, '2023-11-10', 'BMW', 'B001', 2, 'pengen di cat warna merah', 0, 'Cimahi Utara', 2, '', 1);
 
 -- --------------------------------------------------------
 
@@ -162,6 +170,15 @@ CREATE TABLE `tbl_status_booking` (
   `message` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tbl_status_booking`
+--
+
+INSERT INTO `tbl_status_booking` (`id_status_booking`, `nama`, `message`) VALUES
+(1, 'On Process', ''),
+(2, 'Success', ''),
+(3, 'Rejected', '');
+
 -- --------------------------------------------------------
 
 --
@@ -175,6 +192,14 @@ CREATE TABLE `tbl_tipe_service` (
   `estimasi_hari` varchar(255) NOT NULL,
   `estimasi_harga` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_tipe_service`
+--
+
+INSERT INTO `tbl_tipe_service` (`id_tipe_service`, `nama_service`, `down_payment`, `estimasi_hari`, `estimasi_harga`) VALUES
+(1, 'Repair', 500000, '11 hari', '1 juta'),
+(2, 'Repaint', 300000, '3 hari', '800 rb');
 
 -- --------------------------------------------------------
 
@@ -273,7 +298,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_booking`
 --
 ALTER TABLE `tbl_booking`
-  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_mekanik`
@@ -303,13 +328,13 @@ ALTER TABLE `tbl_service`
 -- AUTO_INCREMENT for table `tbl_status_booking`
 --
 ALTER TABLE `tbl_status_booking`
-  MODIFY `id_status_booking` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_status_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_tipe_service`
 --
 ALTER TABLE `tbl_tipe_service`
-  MODIFY `id_tipe_service` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tipe_service` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
