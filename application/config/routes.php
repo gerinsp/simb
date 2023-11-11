@@ -62,7 +62,7 @@ $route['listmekanik']                          = 'mekanik/listmekanik';
 //Route Booking
 $route['booking']                              = 'booking/booking';
 $route['detail-booking']                       = 'booking/detail_booking';
-$route['save']                                 = 'booking/save';
+$route['booking/save']                         = 'booking/save';
 $route['upload-pembayaran']                    = 'booking/upload_pembayaran';
 $route['upload']                               = 'booking/upload';
 $route['lihatbuktipembayaran']                 = 'booking/lihatbuktipembayaran';

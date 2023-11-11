@@ -2,13 +2,13 @@
 function cekuser()
 {
     $ci = get_instance();
-   
-    if (!$ci->session->userdata('username')){
+
+    if (!$ci->session->userdata('username')) {
         redirect('login');
-    }else{
+    } else {
         $role_id = $ci->session->userdata('role_id');
         $menu = $ci->uri->segment(1);
-        
+
 
         // $ci->db->select('*');
         // $ci->db->where("url = '$menu' or url_1 = '$menu' or url_2 = '$menu' or url_3 = '$menu' or url_4 = '$menu'");
@@ -21,7 +21,7 @@ function cekuser()
         //     if ($userAccess->num_rows()<1) {
         //         redirect("blocked");
         //     }
-        
+
 
 
         if ($role_id == 1) {
@@ -40,8 +40,7 @@ function cekuser()
                     # code...
                     break;
             }
-        }
-         else if ($role_id == 2) {
+        } else if ($role_id == 2) {
             switch ($menu) {
                 case 'pimpinan':
                     redirect('blocked');
@@ -53,9 +52,7 @@ function cekuser()
                     # code...
                     break;
             }
-
-        }
-        else if ($role_id == 3) {
+        } else if ($role_id == 3) {
             switch ($menu) {
                 case 'pimpinan':
                     redirect('blocked');
@@ -70,9 +67,7 @@ function cekuser()
                     # code...
                     break;
             }
-
-        }
-        else if ($role_id == 4) {
+        } else if ($role_id == 4) {
             switch ($menu) {
                 case 'pimpinan':
                     redirect('blocked');
@@ -87,10 +82,8 @@ function cekuser()
                     # code...
                     break;
             }
-
         }
     }
-
 }
 
 function check_access($role_id, $menu_id)
@@ -101,7 +94,7 @@ function check_access($role_id, $menu_id)
     $ci->db->where('menu_id', $menu_id);
     $result = $ci->db->get('user_access_menu');
 
-    if ($result->num_rows()>0) {
+    if ($result->num_rows() > 0) {
         return "checked='checked'";
     }
 }
@@ -114,7 +107,7 @@ function check_buttontambah($role_id, $menu_id)
     $ci->db->where('add_btn = 1');
     $result = $ci->db->get('user_access_menu');
 
-    if ($result->num_rows()>0) {
+    if ($result->num_rows() > 0) {
         return "checked='checked'";
     }
 }
@@ -128,7 +121,7 @@ function check_buttonedit($role_id, $menu_id)
     $ci->db->where('update_btn = 1');
     $result = $ci->db->get('user_access_menu');
 
-    if ($result->num_rows()>0) {
+    if ($result->num_rows() > 0) {
         return "checked='checked'";
     }
 }
@@ -141,7 +134,7 @@ function check_buttonhapus($role_id, $menu_id)
     $ci->db->where('delete_btn = 1');
     $result = $ci->db->get('user_access_menu');
 
-    if ($result->num_rows()>0) {
+    if ($result->num_rows() > 0) {
         return "checked='checked'";
     }
 }
@@ -155,12 +148,13 @@ function check_buttondetail($role_id, $menu_id)
     $ci->db->where('detail_btn = 1');
     $result = $ci->db->get('user_access_menu');
 
-    if ($result->num_rows()>0) {
+    if ($result->num_rows() > 0) {
         return "checked='checked'";
     }
 }
 
-function dd($param) {
+function dd($param)
+{
     echo '<pre>';
     var_dump($param);
     echo '</pre>';
