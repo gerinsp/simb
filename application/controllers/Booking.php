@@ -102,4 +102,66 @@ class Booking extends CI_Controller
         $this->load->view('templates/footer');
         $this->load->view('templates/script', $data);
     }
+
+    public function upload()
+    {
+        $idBooking = $this->input->post('idBooking');
+        if (!empty($_FILES['files']['name'])) {
+            $files = $_FILES['files'];
+
+            $data = array(
+                'id_booking' => $idBooking,
+            );
+
+            foreach ($files['tmp_name'] as $key => $tmp_name) {
+                $fileContent = file_get_contents($tmp_name);
+                $base64File = base64_encode($fileContent);
+
+                $data['image'] = 'data:image/png;base64,' . $base64File;
+
+                $this->m->Save($data, 'upload_dp');
+
+                unset($data['base64_files']);
+            }
+
+            $response = array(
+                'status' => 'ok',
+                'message' => 'Upload bukti pembayaran berhasil',
+            );
+        } else {
+            $response = array(
+                'status' => 'err',
+                'message' => 'File tidak ada',
+            );
+        }
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
+
+    }
+    
+    public function lihatbuktipembayaran()
+    {
+        $idBooking = $this->input->post('idBooking');
+
+        $select = $this->db->select('*');
+        $select = $this->db->where('id_booking', $idBooking);
+        $data['read'] = $this->m->Get_All('upload_dp', $select);
+
+        $response = array(
+            'status' => 'ok',
+            'data' => $data['read']
+        );
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
+    }
+
+    public function lihatinvoice()
+    {
+        
+    }
+
+    public function lihatkuitansi()
+    {
+        
+    }
 }

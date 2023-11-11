@@ -64,6 +64,10 @@ $route['booking']                              = 'booking/booking';
 $route['detail-booking']                       = 'booking/detail_booking';
 $route['save']                                 = 'booking/save';
 $route['upload-pembayaran']                    = 'booking/upload_pembayaran';
+$route['upload']                               = 'booking/upload';
+$route['lihatbuktipembayaran']                 = 'booking/lihatbuktipembayaran';
+$route['lihat-invoice']                        = 'booking/lihatinvoice';
+$route['lihat-kuitansi']                       = 'booking/lihatkuitansi';
 
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';

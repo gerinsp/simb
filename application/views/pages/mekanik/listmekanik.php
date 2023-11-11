@@ -99,7 +99,12 @@
                                     <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="15%"><?php echo $data->alamat ?></td>
                                     <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="15%"><?php echo $data->telepon ?></td>
                                     <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="30%">
-                                       <a href="#" data-toggle="modal" data-target="#modaleditmekanik" data-id="<?= $data->id_mekanik; ?>" data-namamekanik="<?= $data->nama_mekanik; ?>" data-tanggallahir="<?= $data->tanggal_lahir; ?>" data-alamat="<?= $data->alamat; ?>" data-telepon="<?= $data->telepon; ?>" onclick="modaleditmekanik(this, 'mekanik/ubahmekanik')" class="editmekanik btn btn-sm btn-success" role="button" title="Ubah"><i class=" fas fa-fw fa-pencil-alt"></i> <?php echo $this->lang->line('change'); ?> </a>
+                                       <a href="#" data-toggle="modal" data-target="#modaleditmekanik"
+                                          data-id="<?= $data->id_mekanik; ?>" data-namamekanik="<?= $data->nama_mekanik; ?>"
+                                          data-tanggallahir="<?= $data->tanggal_lahir; ?>" data-alamat="<?= $data->alamat; ?>"
+                                          data-telepon="<?= $data->telepon; ?>" onclick="modaleditmekanik(this, 'mekanik/ubahmekanik')"
+                                          class="editmekanik btn btn-sm btn-success" role="button" title="Ubah">
+                                           <i class=" fas fa-fw fa-pencil-alt"></i> <?php echo $this->lang->line('change'); ?> </a>
                                        <a href="#" data-toggle="modal" data-target="#deleteModal" data-id="<?= $data->id_mekanik; ?>" class="btn btn-sm btnOpenDeleteModal btn-danger mr-1" title="Hapus" onclick="openDeleteModal(this, 'mekanik/hapusmekanik')" class="btn btn-sm btn-danger" role="button" title="Hapus"> <i class="fas fa-fw fa-trash"></i> <?php echo $this->lang->line('delete'); ?> </a>
                                     </td>
                                  </tr>
