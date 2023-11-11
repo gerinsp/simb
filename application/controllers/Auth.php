@@ -91,114 +91,83 @@ class Auth extends CI_Controller
          redirect('login');
       }
    }
+   public function reg()
+   {
+      $data['title'] = "SIM Bengkel Garasinos | Registration";
+      $this->load->view('auth/header', $data);
+      $this->load->view('auth/registration');
+      $this->load->view('auth/footer');
+   }
    public function registration()
    {
       if ($this->session->userdata('username')) {
          if ($this->session->userdata('role_id') == 1) {
-            redirect('administrator');
+            redirect('owner');
          }
          if ($this->session->userdata('role_id') == 2) {
-            redirect('siswa');
+            redirect('admin');
          } else {
-            redirect('login');
+            redirect('user');
          }
       };
       $this->form_validation->set_rules(
          'nama',
-         'Name',
-         'required|trim',
+         'Name Lengkap',
+         'required|min_length[3]',
          [
-            'required' => 'Nama Tidak Boleh Kosong'
-         ]
-      );
-      $this->form_validation->set_rules(
-         'provinsi',
-         'provinsi',
-         'required|trim',
-         [
-            'required' => 'Provinsi Tidak Boleh Kosong'
-         ]
-      );
-      $this->form_validation->set_rules(
-         'kota',
-         'kota',
-         'required|trim',
-         [
-            'required' => 'Kota Tidak Boleh Kosong'
-         ]
-      );
-      $this->form_validation->set_rules(
-         'kecamatan',
-         'kecamatan',
-         'required|trim',
-         [
-            'required' => 'Kecamatan Tidak Boleh Kosong'
-         ]
-      );
-      $this->form_validation->set_rules(
-         'alamat',
-         'alamat',
-         'required|trim',
-         [
-            'required' => 'Alamat Tidak Boleh Kosong'
+            'required' => '{field} Tidak Boleh Kosong',
+            'min_length' => '{field} Minimal 3 Karakter'
          ]
       );
       $this->form_validation->set_rules(
          'username',
-         'username',
-         'required|trim|valid_username|is_unique[user.username]',
-
+         'Username',
+         'required|alpha_numeric|is_unique[tbl_user.username]',
          [
-            'required' => 'username Tidak Boleh Kosong',
-            'valid_username' => 'Format username Harus Sesuai',
-            'is_unique' => 'username Sudah Terdaftar'
+            'required' => '{field} Tidak Boleh Kosong',
+            'alpha_numeric' => '{field} Hanya Boleh Alphabet & Nomor',
+            'is_unique' => '{field} Sudah Terdaftar'
          ]
       );
       $this->form_validation->set_rules(
-         'password1',
+         'password',
          'Password',
-         'required|trim|min_length[5]|matches[password2]',
+         'required|min_length[4]|matches[password2]',
          [
-            'matches' => 'Password Tidak Sama',
-            'min_length' => 'Password minimal 5 karakter',
-            'required' => 'Password Tidak Boleh Kosong'
+            'required' => '{field} Tidak Boleh Kosong',
+            'min_length' => '{field} minimal 4 karakter',
+            'matches' => '{field} Tidak Sama'
          ]
       );
-      $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+      $this->form_validation->set_rules('password2', 'Password', 'required|min_length[4]|matches[password]');
+      $this->form_validation->set_rules(
+         'isAgree',
+         'Terms',
+         'required',
+         [
+            'required' => '{field} Harus Disetujui'
+         ]
+      );
 
       if ($this->form_validation->run() == false) {
-
-         // $data['kodesiswa']       = $this->m->kodesiswa();
-         // $data['kodependaftaran'] = $this->m->kodependaftaran();
-
-         $data['title'] = "SIM Bengkel Garasinos | Daftar Akun";
+         $data['title'] = "SIM Bengkel Garasinos | Registration";
          $this->load->view('auth/header', $data);
          $this->load->view('auth/registration');
-         $this->load->view('auth/script');
-      } elseif ($this->input->post('kota') != "Sidoarjo" and $this->input->post('kota') != "sidoarjo" and $this->input->post('kota') != "Surabaya" and $this->input->post('kota') != "surabaya") {
-
-         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf cabang kami belum ada di kota anda<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button></div>');
-         redirect('registrasi');
+         $this->load->view('auth/footer');
       } else {
-
          $data = array(
-
             'nama'           =>   htmlspecialchars($this->input->post('nama', true)),
-            'username'          =>   htmlspecialchars($this->input->post('username', true)),
+            'username'       =>   htmlspecialchars($this->input->post('username', true)),
             'image'          =>   'default.png',
-            'password'       =>   password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-            'role_id'        =>   '4',
+            'password'       =>   password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+            'role_id'        =>   '3',
             'is_active'      =>   '1',
-            'tanggal_daftar' =>   date('y-m-d'),
-            'provinsi'       =>   $this->input->post('provinsi'),
-            'kota'           =>   $this->input->post('kota'),
-            'kecamatan'      =>   $this->input->post('kecamatan'),
-            'alamat'         =>   $this->input->post('alamat'),
+            'tanggal_daftar' =>   date('y-m-d')
          );
-         $this->m->Save($data, 'user');
 
+         $this->m->Save($data, 'tbl_user');
 
-         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun sudah berhasil dibuat, Silahkan login<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button> </div> ');
+         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat, Silahkan login<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button> </div> ');
          redirect('login');
       }
    }
