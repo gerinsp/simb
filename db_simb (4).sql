@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2023 at 07:43 AM
+-- Generation Time: Nov 11, 2023 at 01:54 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 5.6.40
 
@@ -55,7 +55,7 @@ INSERT INTO `tbl_booking` (`id_booking`, `tanggal`, `tipe_kendaraan`, `plat_nomo
 --
 
 CREATE TABLE `tbl_invoice` (
-  `no_invoice` bigint(20) NOT NULL,
+  `no_invoice` varchar(255) NOT NULL,
   `id_service` int(11) NOT NULL,
   `nama_customer` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
@@ -66,6 +66,13 @@ CREATE TABLE `tbl_invoice` (
   `status` enum('paid','unpaid') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tbl_invoice`
+--
+
+INSERT INTO `tbl_invoice` (`no_invoice`, `id_service`, `nama_customer`, `tanggal`, `deskripsi`, `total_harga`, `down_payment`, `rest_bill`, `status`) VALUES
+('INV/11/11/2023', 1, 'User', '2023-11-11', '-', 1000000, 300000, 700000, 'paid');
+
 -- --------------------------------------------------------
 
 --
@@ -73,13 +80,20 @@ CREATE TABLE `tbl_invoice` (
 --
 
 CREATE TABLE `tbl_kuitansi` (
-  `no_kuitansi` bigint(20) NOT NULL,
-  `no_invoice` bigint(20) NOT NULL,
+  `no_kuitansi` varchar(255) NOT NULL,
+  `no_invoice` varchar(255) NOT NULL,
   `nama_customer` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
   `nama_service` varchar(255) NOT NULL,
   `total_harga` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_kuitansi`
+--
+
+INSERT INTO `tbl_kuitansi` (`no_kuitansi`, `no_invoice`, `nama_customer`, `tanggal`, `nama_service`, `total_harga`) VALUES
+('kWT/11/11/2023\r\n', 'INV/11/11/2023', 'User', '2023-11-11', 'Repaint', 700000);
 
 -- --------------------------------------------------------
 
@@ -156,6 +170,13 @@ CREATE TABLE `tbl_service` (
   `deskripsi` varchar(255) NOT NULL,
   `status` enum('Menunggu Kedatangan','Proses Perbaikan','Selesai') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_service`
+--
+
+INSERT INTO `tbl_service` (`id_service`, `id_booking`, `nama_customer`, `tgl_mulai`, `tgl_selesai`, `tipe_kendaraan`, `plat_nomor`, `nama_service`, `id_mekanik`, `total_harga`, `deskripsi`, `status`) VALUES
+(1, 1, 'User', '2023-11-11 00:00:00', '2023-11-11 00:00:00', 'BMW', 'PL001', 'Repaint', 1, 1000000, '-', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -349,7 +370,7 @@ ALTER TABLE `tbl_role`
 -- AUTO_INCREMENT for table `tbl_service`
 --
 ALTER TABLE `tbl_service`
-  MODIFY `id_service` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_service` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_booking`

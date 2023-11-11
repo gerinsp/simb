@@ -166,3 +166,72 @@ function dd($param) {
     echo '</pre>';
     die;
 }
+
+function convertToWords($number) {
+    $words = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"];
+    $teens = ["sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas"];
+    $tens = ["", "sepuluh", "dua puluh", "tiga puluh", "empat puluh", "lima puluh", "enam puluh", "tujuh puluh", "delapan puluh", "sembilan puluh"];
+
+    if ($number === 0) {
+        return "nol";
+    }
+
+    if ($number < 10) {
+        return $words[$number];
+    }
+
+    if ($number >= 10 && $number < 20) {
+        return $teens[$number - 10];
+    }
+
+    $result = "";
+
+    $digitJuta = floor($number / 1000000) % 100;
+    $digitRibuan = floor($number / 1000) % 1000;
+    $digitRatus = floor($number / 100) % 10;
+    $digitPuluh = floor($number / 10) % 10;
+    $digitSatuan = $number % 10;
+
+    if ($digitJuta > 0) {
+        $result .= convertToWords($digitJuta) . " juta ";
+    }
+
+    if ($digitRibuan > 0) {
+        $result .= convertToWords($digitRibuan) . " ribu ";
+    }
+
+    if ($digitRatus > 0) {
+        $result .= $words[$digitRatus] . " ratus ";
+    }
+
+    if ($digitPuluh > 0) {
+        $result .= $tens[$digitPuluh] . " ";
+    }
+
+    if ($digitSatuan > 0) {
+        $result .= $words[$digitSatuan] . " ";
+    }
+
+    return trim($result);
+}
+
+
+function formatCurrency($amount) {
+    $parts = explode(".", $amount);
+    $nominal = (int)$parts[0];
+
+    $rupiah = convertToWords($nominal) . " ribu rupiah";
+
+    if (count($parts) === 2) {
+        $sen = (int)$parts[1];
+        $senWords = convertToWords($sen);
+        return "$rupiah dan $senWords sen";
+    }
+
+    return $rupiah;
+}
+
+function rupiah($nominal)
+{
+    return "Rp " . number_format($nominal, 0, ',', '.');
+}
