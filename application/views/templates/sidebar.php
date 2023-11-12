@@ -62,65 +62,83 @@
                      </p>
                   </a>
                </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('listcustomer') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listcustomer") {
+                                                                                 echo "active";
+                                                                              } ?>">
+                     <i class=" nav-icon fas fa-users"></i>
+                     <p>
+                        Data Customer
+                     </p>
+                  </a>
+                  <a href="<?= base_url('listservice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listservice") {
+                                                                              echo "active";
+                                                                           } ?>">
+                     <i class=" nav-icon fas fa-book"></i>
+                     <p>
+                        Data Service
+                     </p>
+                  </a>
+               </li>
             <?php } ?>
-             <?php if ($this->session->userdata('role_id') == 3) { ?>
-                 <li class="nav-item">
-                     <a href="<?= base_url('booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "booking") {
-                         echo "active";
-                     } ?>">
-                         <i class="nav-icon fas fa-calendar-alt"></i>
-                         <p>
-                             Booking
-                         </p>
-                     </a>
-                 </li>
+            <?php if ($this->session->userdata('role_id') == 3) { ?>
+               <li class="nav-item">
+                  <a href="<?= base_url('booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "booking") {
+                                                                           echo "active";
+                                                                        } ?>">
+                     <i class="nav-icon fas fa-calendar-alt"></i>
+                     <p>
+                        Booking
+                     </p>
+                  </a>
+               </li>
 
-                 <li class="nav-item">
-                     <a href="<?= base_url('upload-pembayaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "upload-pembayaran") {
-                         echo "active";
-                     } ?>">
-                         <i class="nav-icon fas fa-cloud-upload-alt"></i>
-                         <p>
-                             Upload Pembayaran
-                         </p>
-                     </a>
-                 </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('upload-pembayaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "upload-pembayaran") {
+                                                                                    echo "active";
+                                                                                 } ?>">
+                     <i class="nav-icon fas fa-cloud-upload-alt"></i>
+                     <p>
+                        Upload Pembayaran
+                     </p>
+                  </a>
+               </li>
 
-                 <li class="nav-item">
-                     <a href="<?= base_url('detail-booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "detail-booking") {
-                         echo "active";
-                     } ?>">
-                         <i class="nav-icon fas fa-info-circle"></i>
-                         <p>
-                             Detail Booking
-                         </p>
-                     </a>
-                 </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('detail-booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "detail-booking") {
+                                                                                 echo "active";
+                                                                              } ?>">
+                     <i class="nav-icon fas fa-info-circle"></i>
+                     <p>
+                        Detail Booking
+                     </p>
+                  </a>
+               </li>
 
-             <?php } ?>
-             <?php if ($this->session->userdata('role_id') == 4) : ?>
-                 <li class="nav-item">
-                     <a href="<?= base_url('laporan-service') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-service") {
-                         echo "active";
-                     } ?>">
-                         <i class="nav-icon fas fa-cogs"></i>
-                         <p>
-                             Laporan Service
-                         </p>
-                     </a>
-                 </li>
+            <?php } ?>
+            <?php if ($this->session->userdata('role_id') == 4) : ?>
+               <li class="nav-item">
+                  <a href="<?= base_url('laporan-service') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-service") {
+                                                                                    echo "active";
+                                                                                 } ?>">
+                     <i class="nav-icon fas fa-cogs"></i>
+                     <p>
+                        Laporan Service
+                     </p>
+                  </a>
+               </li>
 
-                 <li class="nav-item">
-                     <a href="<?= base_url('laporan-mekanik') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-mekanik") {
-                         echo "active";
-                     } ?>">
-                         <i class="nav-icon fas fa-wrench"></i>
-                         <p>
-                             Laporan Mekanik
-                         </p>
-                     </a>
-                 </li>
-             <?php endif; ?>
+               <li class="nav-item">
+                  <a href="<?= base_url('laporan-mekanik') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-mekanik") {
+                                                                                    echo "active";
+                                                                                 } ?>">
+                     <i class="nav-icon fas fa-wrench"></i>
+                     <p>
+                        Laporan Mekanik
+                     </p>
+                  </a>
+               </li>
+            <?php endif; ?>
             <li class="nav-header">Profil</li>
             <li class="nav-item">
                <a href="<?= base_url('profile') ?>" class="nav-link <?php if ($this->uri->segment(1) == "profile") {
