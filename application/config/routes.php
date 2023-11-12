@@ -55,6 +55,9 @@ $route['registration'] = 'auth/registration';
 $route['login']      = 'auth/index';
 $route['blocked']    = 'auth/blocked';
 
+//route laporan
+$route['laporan-service']                      = 'laporan/laporan_service';
+$route['laporan-mekanik']                      = 'laporan/laporan_mekanik';
 
 //Routes Mekanik
 $route['listmekanik']                          = 'mekanik/listmekanik';

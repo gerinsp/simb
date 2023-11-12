@@ -175,7 +175,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-left" style="width: 30%;"><h6 class="mb-0" style="font-weight: bold">Untuk Pembayaran</h6></td>
-                                        <td class="text-left"><h6 class="mb-0">: JASA ${res.data.jenis_service} MOBIL ${res.data.tipe_kendaraan} (PELUNASAN)</h6></td>
+                                        <td class="text-left"><h6 class="mb-0">: JASA ${res.data.jenis_service} MOBIL ${res.data.tipe_mobil} (PELUNASAN)</h6></td>
                                     </tr>
                                 </table>
                           </div>
