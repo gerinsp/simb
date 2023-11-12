@@ -72,8 +72,15 @@ $route['lihatbuktipembayaran']                 = 'booking/lihatbuktipembayaran';
 $route['lihat-invoice']                        = 'booking/lihatinvoice';
 $route['lihat-kuitansi']                       = 'booking/lihatkuitansi';
 
+
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';
+
+//Routes Customers
+$route['listcustomer']                         = 'customer/listcustomer';
+
+//Routes Service
+$route['listservice']                          = 'service/listservice';
 
 //Routes Profile
 $route['profile']                              = 'profile/profile';
