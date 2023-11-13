@@ -63,39 +63,7 @@
                      </p>
                   </a>
                </li>
-               <li class="nav-item">
-                  <a href="<?= base_url('book') ?>" class="nav-link <?php if ($this->uri->segment(1) == "book") {
-                                                                        echo "active";
-                                                                     } ?>">
-                     <i class=" nav-icon fas fa-calendar-alt"></i>
-                     <p>
-                        Data Booking
-                     </p>
-                  </a>
-               </li>
-               <li class="nav-item">
-                  <a href="<?= base_url('invoice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "invoice") {
-                                                                           echo "active";
-                                                                        } ?>">
-                     <i class=" nav-icon fas fa-file-invoice-dollar"></i>
-                     <p>
-                        Data Invoice
-                     </p>
-                  </a>
-               </li>
-               <li class="nav-item">
-                  <a href="<?= base_url('kuitansi') ?>" class="nav-link <?php if ($this->uri->segment(1) == "kuitansi") {
-                                                                           echo "active";
-                                                                        } ?>">
-                     <i class=" nav-icon fas fa-receipt"></i>
-                     <p>
-                        Data Kuitansi
-                     </p>
-                  </a>
-               </li>
             <?php } ?>
-
-            <!-- User -->
             <?php if ($this->session->userdata('role_id') == 3) { ?>
                <li class="nav-item">
                   <a href="<?= base_url('booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "booking") {
@@ -131,6 +99,29 @@
                </li>
 
             <?php } ?>
+            <?php if ($this->session->userdata('role_id') == 4) : ?>
+               <li class="nav-item">
+                  <a href="<?= base_url('laporan-service') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-service") {
+                                                                                    echo "active";
+                                                                                 } ?>">
+                     <i class="nav-icon fas fa-cogs"></i>
+                     <p>
+                        Laporan Service
+                     </p>
+                  </a>
+               </li>
+
+               <li class="nav-item">
+                  <a href="<?= base_url('laporan-mekanik') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-mekanik") {
+                                                                                    echo "active";
+                                                                                 } ?>">
+                     <i class="nav-icon fas fa-wrench"></i>
+                     <p>
+                        Laporan Mekanik
+                     </p>
+                  </a>
+               </li>
+            <?php endif; ?>
             <li class="nav-header">Profil</li>
             <li class="nav-item">
                <a href="<?= base_url('profile') ?>" class="nav-link <?php if ($this->uri->segment(1) == "profile") {

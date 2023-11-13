@@ -51,6 +51,28 @@
 </script>
 
 <script>
+    $(document).ready(function() {
+        const table1 = $('.table-laporan').DataTable({
+                            buttons: [
+                                {
+                                    extend: 'excel',
+                                    className: 'btn-primary',
+                                    style: {
+                                        background: 'red',
+                                        color: 'blue'
+                                    }
+                                }
+                            ]
+                        });
+        table1.buttons('.buttons-excel').container().hide();
+        $('.btn-export').on('click', () => {
+            table1.buttons('.buttons-excel').trigger();
+            console.log('tombol export di klik');
+        })
+    });
+</script>
+
+<script>
    $(function() {
       // Summernote
       $('#summernote').summernote()

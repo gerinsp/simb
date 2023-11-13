@@ -155,27 +155,68 @@ class Booking extends CI_Controller
 
     public function lihatinvoice()
     {
+        $idBooking = $this->input->post('idBooking');
+
+        $select = $this->db->select('*');
+        $select = $this->db->join('service', 'service.id_service = invoice.id_service');
+        $select = $this->db->where('id_booking', $idBooking);
+        $data['read'] = $this->m->Get_All('invoice', $select);
+
+        $data['invoices'] = [];
+
+        foreach ($data['read'] as $invoice) {
+            $data['invoices'][] = [
+                'no_invoice' => $invoice->no_invoice,
+                'nama_customer' => strtolower($invoice->nama_customer),
+                'tanggal' => format_indo($invoice->tanggal),
+                'tipe_mobil' => $invoice->tipe_kendaraan,
+                'jenis_service' => $invoice->nama_service,
+                'dp' => rupiah($invoice->down_payment),
+                'total' => rupiah($invoice->total_harga),
+                'sisa' => rupiah($invoice->rest_bill),
+            ];
+        }
+
+        $response = array(
+            'status' => 'ok',
+            'data' => $data['invoices'][0]
+        );
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 
     public function lihatkuitansi()
     {
-    }
+        $idBooking = $this->input->post('idBooking');
 
-    // Admin Method ==> route book
-    public function listbooking()
-    {
-        $data['user'] = $this->m->Get_Where(['id_user' => $this->session->userdata('id_user')], 'user');
-        $data['onprocessbooking'] = $this->m->Get_Onprocess_Booking();
-        $data['allbooking'] = $this->db->order_by('tanggal', 'DESC')->get('booking')->result();
-        // dd($data['allbooking']);
+        $this->db->select('*');
+        $this->db->from('kuitansi');
+        $this->db->join('invoice', 'invoice.no_invoice = kuitansi.no_invoice', 'left');
+        $this->db->join('service', 'service.id_service = invoice.id_service', 'left');
+        $this->db->where('id_booking', 1);
+        $query = $this->db->get();
+        $data['read'] = $query->result();
 
-        $data['title'] = 'SIM Bengkel Garasinos | List Booking';
+        $data['kwitansi'] = [];
 
-        $this->load->view('templates/head', $data);
-        $this->load->view('templates/navigation', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('pages/booking/listbooking', $data);
-        $this->load->view('templates/footer');
-        $this->load->view('templates/script', $data);
+        foreach ($data['read'] as $kwitansi) {
+            $data['kwitansi'][] = [
+                'no_invoice' => $kwitansi->no_invoice,
+                'no_kwitansi' => $kwitansi->no_kuitansi,
+                'nama_customer' => ucwords($kwitansi->nama_customer),
+                'tanggal' => format_indo($kwitansi->tanggal),
+                'tipe_mobil' => strtoupper($kwitansi->tipe_kendaraan),
+                'jenis_service' => strtoupper($kwitansi->nama_service),
+                'total' => rupiah($kwitansi->total_harga),
+                'total_harga' => ucwords(convertToWords($kwitansi->total_harga))
+            ];
+        }
+
+        $response = array(
+            'status' => 'ok',
+            'data' => $data['kwitansi'][0]
+        );
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 }

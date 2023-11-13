@@ -55,6 +55,9 @@ $route['registration'] = 'auth/registration';
 $route['login']      = 'auth/index';
 $route['blocked']    = 'auth/blocked';
 
+//route laporan
+$route['laporan-service']                      = 'laporan/laporan_service';
+$route['laporan-mekanik']                      = 'laporan/laporan_mekanik';
 
 //Routes Mekanik
 $route['listmekanik']                          = 'mekanik/listmekanik';
@@ -69,16 +72,14 @@ $route['lihatbuktipembayaran']                 = 'booking/lihatbuktipembayaran';
 $route['lihat-invoice']                        = 'booking/lihatinvoice';
 $route['lihat-kuitansi']                       = 'booking/lihatkuitansi';
 
-// Rountes Dashboard Booking
-$route['book']                                = 'booking/listbooking';
-$route['book/(:num)/confirm']                 = 'booking/confirm/$1';
-$route['invoice']                             = 'invoice';
-$route['invoice/(:any)']                      = 'invoice/invoice/$1';
-$route['kuitansi']                            = 'kuitansi';
-// $route['kwitansi/(:any)']                       = 'invoice/invoice/$1';
-
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';
+
+//Routes Customers
+$route['listcustomer']                         = 'customer/listcustomer';
+
+//Routes Service
+$route['listservice']                          = 'service/listservice';
 
 //Routes Profile
 $route['profile']                              = 'profile/profile';

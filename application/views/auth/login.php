@@ -30,6 +30,12 @@
                </div>
                <!-- /.col -->
             </div>
+             <p class="mb-0 mt-5">
+                 Don't you have an account yet?
+                 <a href="<?= base_url('registration') ?>" class="link-primary text-center">
+                     Register here
+                 </a>
+             </p>
          </form>
 
 

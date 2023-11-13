@@ -58,7 +58,15 @@
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->is_delivery == 1 ? 'Pribadi' : 'Non Pribadi'; ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->alamat ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%">
-                                                    <span class="badge badge-primary"><?= $data->nama ?></span>
+                                                    <?php if ($data->id_status_booking == 1) : ?>
+                                                        <span class="badge badge-warning"><?= $data->nama ?></span>
+                                                    <?php endif; ?>
+                                                    <?php if ($data->id_status_booking == 2) : ?>
+                                                        <span class="badge badge-success"><?= $data->nama ?></span>
+                                                    <?php endif; ?>
+                                                    <?php if ($data->id_status_booking == 3) : ?>
+                                                        <span class="badge badge-danger"><?= $data->nama ?></span>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                         <?php
