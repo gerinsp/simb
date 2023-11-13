@@ -41,6 +41,7 @@
                   </p>
                </a>
             </li>
+            <!-- Admin -->
             <?php if ($this->session->userdata('role_id') == 2) { ?>
                <li class="nav-item">
                   <a href="<?= base_url('listmekanik') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listmekanik") {
@@ -62,42 +63,54 @@
                      </p>
                   </a>
                </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('book') ?>" class="nav-link <?php if ($this->uri->segment(1) == "book") {
+                                                                        echo "active";
+                                                                     } ?>">
+                     <i class=" nav-icon fas fa-calendar-alt"></i>
+                     <p>
+                        Data Booking
+                     </p>
+                  </a>
+               </li>
             <?php } ?>
-             <?php if ($this->session->userdata('role_id') == 3) { ?>
-                 <li class="nav-item">
-                     <a href="<?= base_url('booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "booking") {
-                         echo "active";
-                     } ?>">
-                         <i class="nav-icon fas fa-calendar-alt"></i>
-                         <p>
-                             Booking
-                         </p>
-                     </a>
-                 </li>
 
-                 <li class="nav-item">
-                     <a href="<?= base_url('upload-pembayaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "upload-pembayaran") {
-                         echo "active";
-                     } ?>">
-                         <i class="nav-icon fas fa-cloud-upload-alt"></i>
-                         <p>
-                             Upload Pembayaran
-                         </p>
-                     </a>
-                 </li>
+            <!-- User -->
+            <?php if ($this->session->userdata('role_id') == 3) { ?>
+               <li class="nav-item">
+                  <a href="<?= base_url('booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "booking") {
+                                                                           echo "active";
+                                                                        } ?>">
+                     <i class="nav-icon fas fa-calendar-alt"></i>
+                     <p>
+                        Booking
+                     </p>
+                  </a>
+               </li>
 
-                 <li class="nav-item">
-                     <a href="<?= base_url('detail-booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "detail-booking") {
-                         echo "active";
-                     } ?>">
-                         <i class="nav-icon fas fa-info-circle"></i>
-                         <p>
-                             Detail Booking
-                         </p>
-                     </a>
-                 </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('upload-pembayaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "upload-pembayaran") {
+                                                                                    echo "active";
+                                                                                 } ?>">
+                     <i class="nav-icon fas fa-cloud-upload-alt"></i>
+                     <p>
+                        Upload Pembayaran
+                     </p>
+                  </a>
+               </li>
 
-             <?php } ?>
+               <li class="nav-item">
+                  <a href="<?= base_url('detail-booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "detail-booking") {
+                                                                                 echo "active";
+                                                                              } ?>">
+                     <i class="nav-icon fas fa-info-circle"></i>
+                     <p>
+                        Detail Booking
+                     </p>
+                  </a>
+               </li>
+
+            <?php } ?>
             <li class="nav-header">Profil</li>
             <li class="nav-item">
                <a href="<?= base_url('profile') ?>" class="nav-link <?php if ($this->uri->segment(1) == "profile") {

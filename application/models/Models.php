@@ -74,4 +74,14 @@ class Models extends CI_Model
 
       return $query->row();
    }
+
+   // Admin Booking
+   public function Get_Onprocess_Booking()
+   {
+      return $this->db->select('*')
+         ->join('status_booking', 'status_booking.id_status_booking = booking.id_status_booking')
+         ->order_by('tanggal', 'DESC')
+         ->get_where('booking', ['booking.id_status_booking' => 1])
+         ->result();
+   }
 }

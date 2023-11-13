@@ -69,6 +69,12 @@ $route['lihatbuktipembayaran']                 = 'booking/lihatbuktipembayaran';
 $route['lihat-invoice']                        = 'booking/lihatinvoice';
 $route['lihat-kuitansi']                       = 'booking/lihatkuitansi';
 
+// Rountes Dashboard Booking
+$route['book']                                = 'booking/listbooking';
+$route['book/(:num)/confirm']                 = 'booking/confirm/$1';
+$route['invoice']                             = 'invoice';
+$route['invoice/(:any)']                       = 'invoice/invoice/$1';
+
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';
 
