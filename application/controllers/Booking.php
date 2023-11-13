@@ -219,4 +219,20 @@ class Booking extends CI_Controller
 
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
+    public function listbooking()
+    {
+        $data['user'] = $this->m->Get_Where(['id_user' => $this->session->userdata('id_user')], 'user');
+        $data['onprocessbooking'] = $this->m->Get_Onprocess_Booking();
+        $data['allbooking'] = $this->db->order_by('tanggal', 'DESC')->get('booking')->result();
+        // dd($data['allbooking']);
+
+        $data['title'] = 'SIM Bengkel Garasinos | List Booking';
+
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/navigation', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('pages/booking/listbooking', $data);
+        $this->load->view('templates/footer');
+        $this->load->view('templates/script', $data);
+    }
 }

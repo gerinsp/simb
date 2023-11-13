@@ -57,7 +57,7 @@
                                                     <span class="badge badge-primary"><?= $data->status ?></span>
                                                 </td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="30%">
-                                                    <a href="<?= base_url() ?>invoice/<?= $data->nama_customer; ?>" class="btn btn-sm btn-success">Konfirmasi</a>
+                                                    <a href="<?= base_url() ?>invoice/<?= $data->id_invoice; ?>" class="btn btn-sm btn-success">Konfirmasi</a>
                                                 </td>
                                             </tr>
                                         <?php

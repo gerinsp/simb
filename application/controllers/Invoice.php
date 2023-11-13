@@ -35,14 +35,30 @@ class Invoice extends CI_Controller
         $this->load->view('templates/script', $data);
     }
 
-    public function invoice($nama_customer)
+    public function invoice($id_invoice)
     {
         $data['user'] = $this->m->Get_Where(['id_user' => $this->session->userdata('id_user')], 'user');
 
-        $this->db->update('invoice', ['status' => 'paid'], ['nama_customer' => $nama_customer, 'status' => 'unpaid']);
-        $result = $this->db->affected_rows();
+        $invoice = $this->db->select('invoice.nama_customer, nama_service, invoice.total_harga')
+            ->join('tipe_service', 'tipe_service.id_tipe_service = invoice.id_service')
+            ->get_where('invoice', ['id_invoice' => $id_invoice])->row();
 
-        if ($result) {
+        $now = date('d/m/Y');
+        $no_kuitansi = "KWT" . mt_rand(1000, 9999) . $now;
+        $data_kuitansi = [
+            'no_kuitansi' => $no_kuitansi,
+            'id_invoice' => $id_invoice,
+            'nama_customer' => $invoice->nama_customer,
+            'nama_service' => $invoice->nama_service,
+            'total_harga' => $invoice->total_harga
+        ];
+
+        $this->db->update('invoice', ['status' => 'paid'], ['id_invoice' => $id_invoice]);
+        $result1 = $this->db->affected_rows();
+        $this->db->insert('kuitansi', $data_kuitansi);
+        $result2 = $this->db->affected_rows();
+
+        if ($result1 && $result2) {
             $this->session->set_flashdata('success', 'Invoice Telah Dibayar');
             return redirect('invoice');
         } else {
