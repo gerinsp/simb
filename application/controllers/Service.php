@@ -104,4 +104,52 @@ class Service extends CI_Controller
       $this->session->set_flashdata('success', 'Status service berhasil diupdate');
       redirect('listservice');
    }
+   public function add($id_booking)
+   {
+      $data['user'] = $this->m->Get_Where(['id_user' => $this->session->userdata('id_user')], 'user');
+
+      $data['booking'] = $this->db->select('user.nama, tipe_service.nama_service, booking.id_booking, booking.tipe_kendaraan, booking.plat_nomor, booking.deskripsi')
+         ->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service')
+         ->join('user', 'user.id_user = booking.id_user')
+         ->get_where('booking', ['id_booking' => $id_booking])->row();
+
+      $data['mekanik'] = $this->db->get('mekanik')->result();
+
+      $data['title'] = 'SIM Bengkel Garasinos | Tambah Service';
+
+      $this->load->view('templates/head', $data);
+      $this->load->view('templates/navigation', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('pages/service/add', $data);
+      $this->load->view('templates/footer');
+      $this->load->view('templates/script', $data);
+   }
+   public function reject($id_booking)
+   {
+      $this->db->update('booking', ['id_status_booking' => 3], ['id_booking' => $id_booking]);
+
+      $this->session->set_flashdata('success', 'Booking berhasil direject');
+      redirect('book');
+   }
+   public function save($id_booking)
+   {
+      $this->db->insert('service', [
+         'id_booking' => $id_booking,
+         'nama_customer' => $this->input->post('nama_customer'),
+         'tipe_kendaraan' => $this->input->post('tipe_kendaraan'),
+         'plat_nomor' => $this->input->post('plat_nomor'),
+         'nama_service' => $this->input->post('nama_service'),
+         'deskripsi' => $this->input->post('deskripsi'),
+         'tgl_mulai' => $this->input->post('tgl_mulai'),
+         'tgl_selesai' => $this->input->post('tgl_selesai'),
+         'id_mekanik' => $this->input->post('id_mekanik'),
+         'total_harga' => $this->input->post('total_harga'),
+         'status' => 'Menunggu Kedatangan'
+      ]);
+
+      $this->db->update('booking', ['id_status_booking' => 2], ['id_booking' => $id_booking]);
+
+      $this->session->set_flashdata('success', 'Service berhasil ditambahkan');
+      redirect('listservice');
+   }
 }

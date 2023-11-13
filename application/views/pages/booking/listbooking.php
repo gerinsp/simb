@@ -60,6 +60,7 @@
                                                 </td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="30%">
                                                     <a href="<?= base_url() ?>service/<?= $data->id_booking; ?>/add" class="btn btn-sm btn-success">Konfirmasi</a>
+                                                    <a href="<?= base_url() ?>service/<?= $data->id_booking; ?>/reject" class="btn btn-sm btn-danger">Tolak</a>
                                                 </td>
                                             </tr>
                                         <?php

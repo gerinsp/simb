@@ -103,7 +103,7 @@
                   </a>
                </li>
                <li class="nav-item">
-                  <a href="<?= base_url('listservice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listservice") {
+                  <a href="<?= base_url('listservice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listservice" || $this->uri->segment(1) == "service") {
                                                                               echo "active";
                                                                            } ?>">
                      <i class=" nav-icon fas fa-book"></i>

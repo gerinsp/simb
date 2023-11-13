@@ -77,6 +77,9 @@ $route['book']                                = 'booking/listbooking';
 $route['invoice']                             = 'invoice';
 $route['invoice/(:num)']                      = 'invoice/invoice/$1';
 $route['kuitansi']                            = 'kuitansi';
+$route['service/(:num)/add']                  = 'service/add/$1';
+$route['service/(:num)/reject']               = 'service/reject/$1';
+$route['service/(:num)/save']                 = 'service/save/$1';
 
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';
