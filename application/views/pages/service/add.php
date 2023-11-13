@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Booking</h1>
+                    <h1>Tambah Service</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">Home</li>
-                        <li class="breadcrumb-item active"><a class="text-info" href="<?php echo base_url() ?>listmekanik">Booking</a></li>
+                        <li class="breadcrumb-item active"><a class="text-info" href="<?php echo base_url() ?>">Home</a></li>
+                        <li class="breadcrumb-item">Service</li>
                     </ol>
                 </div>
             </div>
@@ -26,13 +26,13 @@
                     <?= $this->session->flashdata('message'); ?>
                     <div class="shadow card">
                         <div class="card-body">
-                            <form action="<?php echo base_url('booking/save'); ?> " enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                            <form action="<?php echo base_url(); ?>service/<?= $booking->id_booking; ?>/save" method="post" accept-charset="utf-8">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="tanggal">Tanggal</label>
+                                        <label for="nama_customer">Nama Customer</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="tanggal" name="tanggal" type="date">
+                                        <input class="form-control" required id="nama_customer" name="nama_customer" type="text" value="<?= $booking->nama; ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
@@ -40,27 +40,23 @@
                                         <label for="tipe_kendaraan">Tipe dan Seri Mobil</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="tipe_kendaraan" name="tipe_kendaraan" type="text">
+                                        <input class="form-control" required id="tipe_kendaraan" name="tipe_kendaraan" type="text" value="<?= $booking->tipe_kendaraan; ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
                                     <div class="col-md-2">
-                                        <label for="id_tipe_service">Jenis Service</label>
+                                        <label for="plat_nomor">Nomor Polisi</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <select class="form-control" name="id_tipe_service" id="id_tipe_service" required>
-                                            <?php foreach ($jenisservice as $data) : ?>
-                                                <option value="<?= $data->id_tipe_service ?>"><?= $data->nama_service ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <input class="form-control" required id="plat_nomor" name="plat_nomor" type="text" value="<?= $booking->plat_nomor; ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
                                     <div class="col-md-2">
-                                        <label for="plat_nomor">Plat Nomor</label>
+                                        <label for="nama_service">Jenis Service</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="plat_nomor" name="plat_nomor" type="text">
+                                        <input class="form-control" required id="nama_service" name="nama_service" type="text" value="<?= $booking->nama_service; ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
@@ -68,32 +64,49 @@
                                         <label for="deskripsi">Deskripsi</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="deskripsi" name="deskripsi" type="text">
+                                        <input class="form-control" required id="deskripsi" name="deskripsi" type="text" value="<?= $booking->deskripsi; ?>">
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
                                     <div class="col-md-2">
-                                        <label for="is_delivery">Pengantaran dan Pengambilan Mobil</label>
+                                        <label for="tgl_mulai">Tanggal Mulai</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <select class="form-control" name="is_delivery" id="is_delivery" required>
-                                            <option value="1">Pribadi</option>
-                                            <option value="0">Non Pribadi</option>
+                                        <input class="form-control" required id="tgl_mulai" name="tgl_mulai" type="date">
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top:10px">
+                                    <div class="col-md-2">
+                                        <label for="tgl_selesai">Tanggal Selesai</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input class="form-control" required id="tgl_selesai" name="tgl_selesai" type="date">
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top:10px">
+                                    <div class="col-md-2">
+                                        <label for="id_mekanik">Mekanik</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="id_mekanik" id="id_mekanik" required>
+                                            <?php foreach ($mekanik as $data) : ?>
+                                                <option value="<?= $data->id_mekanik ?>"><?= $data->nama_mekanik ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
                                     <div class="col-md-2">
-                                        <label for="alamat">Alamat</label>
+                                        <label for="total_harga">Total Harga</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="alamat" name="alamat" type="text">
+                                        <input class="form-control" required id="total_harga" name="total_harga" type="number">
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
                                     <div class="col-md-2"> </div>
                                     <div class="col-md-8" style="text-align: right;">
-                                        <button class="btn btn-sm btn-dark" style="width: 180px;height: 38px;">BOOKING</button>
+                                        <button class="btn btn-sm btn-dark" style="width: 180px;height: 38px;">SIMPAN</button>
                                     </div>
                                 </div>
                             </form>
@@ -107,25 +120,3 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
-<!-- Function Javascript -->
-<!-- jQuery -->
-<script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="<?= base_url('assets/plugins/jquery-ui/jquery-ui.min.js') ?>"></script>
-<script>
-    function modaleditmekanik(elem, link) {
-        const id = $(elem).data("id");
-        const namamekanik = $(elem).data("namamekanik");
-        const tanggallahir = $(elem).data("tanggallahir");
-        const alamat = $(elem).data("alamat");
-        const telepon = $(elem).data("telepon");
-        $("#idmekanik").attr("value", id);
-        $("#namamekanik").attr("value", namamekanik);
-        $("#tanggallahir").attr("value", tanggallahir);
-        $("#alamat").attr("value", alamat);
-        $("#telepon").attr("value", telepon);
-        $("#formeditmekanik").attr("action", link);
-    }
-</script>
-<!-- End Function Javascript -->

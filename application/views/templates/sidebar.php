@@ -71,7 +71,39 @@
                         Data Customer
                      </p>
                   </a>
-                  <a href="<?= base_url('listservice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listservice") {
+               </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('book') ?>" class="nav-link <?php if ($this->uri->segment(1) == "book") {
+                                                                        echo "active";
+                                                                     } ?>">
+                     <i class=" nav-icon fas fa-calendar-alt"></i>
+                     <p>
+                        Data Booking
+                     </p>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('invoice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "invoice") {
+                                                                           echo "active";
+                                                                        } ?>">
+                     <i class=" nav-icon fas fa-file-invoice-dollar"></i>
+                     <p>
+                        Data Invoice
+                     </p>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('Kuitansi') ?>" class="nav-link <?php if ($this->uri->segment(1) == "Kuitansi") {
+                                                                           echo "active";
+                                                                        } ?>">
+                     <i class=" nav-icon fas fa-receipt"></i>
+                     <p>
+                        Data Kuitansi
+                     </p>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('listservice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listservice" || $this->uri->segment(1) == "service") {
                                                                               echo "active";
                                                                            } ?>">
                      <i class=" nav-icon fas fa-book"></i>

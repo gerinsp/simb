@@ -20,7 +20,7 @@ class Booking extends CI_Controller
         $data['user'] = $this->m->Get_Where($where, $table);
 
         $select = $this->db->select('*');
-        $data['read'] = $this->m->Get_All('tipe_service', $select);
+        $data['jenisservice'] = $this->m->Get_All('tipe_service', $select);
 
         $data['title'] = 'SIM Bengkel Garasinos | Booking';
         // echo "Selamat Datang" . $data->nama;
@@ -37,14 +37,13 @@ class Booking extends CI_Controller
     {
         $data = array(
             'tanggal'            => $this->input->post('tanggal'),
-            'tipe_kendaraan'     => $this->input->post('jeniskendaraan'),
-            'plat_nomor'         => $this->input->post('platnomor'),
-            'id_tipe_service'    => $this->input->post('jenisservice'),
+            'tipe_kendaraan'     => $this->input->post('tipe_kendaraan'),
+            'plat_nomor'         => $this->input->post('plat_nomor'),
+            'id_tipe_service'    => $this->input->post('id_tipe_service'),
             'deskripsi'          => $this->input->post('deskripsi'),
-            'is_delivery'        => $this->input->post('isdelivery'),
+            'is_delivery'        => $this->input->post('is_delivery'),
             'alamat'             => $this->input->post('alamat'),
             'id_user'            => $this->session->userdata('id_user'),
-            'down_payment_image' => '',
             'id_status_booking'  => 1,
         );
 
@@ -66,8 +65,8 @@ class Booking extends CI_Controller
         $select = $this->db->select('*');
         $select = $this->db->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service', 'left');
         $select = $this->db->join('status_booking', 'status_booking.id_status_booking = booking.id_status_booking', 'left');
-        $data['read'] = $this->m->Get_All('booking', $select);
-//        dd($data['read']);
+        $data['booking'] = $this->m->Get_All('booking', $select);
+        //        dd($data['read']);
         $data['title'] = 'SIM Bengkel Garasinos | Detail Booking';
         // echo "Selamat Datang" . $data->nama;
 
@@ -91,7 +90,7 @@ class Booking extends CI_Controller
         $select = $this->db->select('*');
         $select = $this->db->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service', 'left');
         $data['read'] = $this->m->Get_All('booking', $select);
-//        dd($data['read']);
+        //        dd($data['read']);
         $data['title'] = 'SIM Bengkel Garasinos | Detail Booking';
         // echo "Selamat Datang" . $data->nama;
 
@@ -136,9 +135,8 @@ class Booking extends CI_Controller
         }
 
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
-
     }
-    
+
     public function lihatbuktipembayaran()
     {
         $idBooking = $this->input->post('idBooking');
@@ -220,5 +218,21 @@ class Booking extends CI_Controller
         );
 
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
+    }
+    public function listbooking()
+    {
+        $data['user'] = $this->m->Get_Where(['id_user' => $this->session->userdata('id_user')], 'user');
+        $data['onprocessbooking'] = $this->m->Get_Onprocess_Booking();
+        $data['allbooking'] = $this->db->order_by('tanggal', 'DESC')->get('booking')->result();
+        // dd($data['allbooking']);
+
+        $data['title'] = 'SIM Bengkel Garasinos | List Booking';
+
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/navigation', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('pages/booking/listbooking', $data);
+        $this->load->view('templates/footer');
+        $this->load->view('templates/script', $data);
     }
 }

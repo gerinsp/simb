@@ -122,7 +122,7 @@ class Auth extends CI_Controller
       $this->form_validation->set_rules(
          'username',
          'Username',
-         'required|alpha_numeric|is_unique[tbl_user.username]',
+         'required|alpha_numeric|is_unique[user.username]',
          [
             'required' => '{field} Tidak Boleh Kosong',
             'alpha_numeric' => '{field} Hanya Boleh Alphabet & Nomor',

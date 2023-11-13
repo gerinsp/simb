@@ -65,13 +65,21 @@ $route['listmekanik']                          = 'mekanik/listmekanik';
 //Route Booking
 $route['booking']                              = 'booking/booking';
 $route['detail-booking']                       = 'booking/detail_booking';
-$route['save']                                 = 'booking/save';
+$route['booking/save']                         = 'booking/save';
 $route['upload-pembayaran']                    = 'booking/upload_pembayaran';
 $route['upload']                               = 'booking/upload';
 $route['lihatbuktipembayaran']                 = 'booking/lihatbuktipembayaran';
 $route['lihat-invoice']                        = 'booking/lihatinvoice';
 $route['lihat-kuitansi']                       = 'booking/lihatkuitansi';
 
+// Rountes Dashboard Booking
+$route['book']                                = 'booking/listbooking';
+$route['invoice']                             = 'invoice';
+$route['invoice/(:num)']                      = 'invoice/invoice/$1';
+$route['kuitansi']                            = 'kuitansi';
+$route['service/(:num)/add']                  = 'service/add/$1';
+$route['service/(:num)/reject']               = 'service/reject/$1';
+$route['service/(:num)/save']                 = 'service/save/$1';
 
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';
