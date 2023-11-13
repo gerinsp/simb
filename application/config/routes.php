@@ -73,7 +73,9 @@ $route['lihat-kuitansi']                       = 'booking/lihatkuitansi';
 $route['book']                                = 'booking/listbooking';
 $route['book/(:num)/confirm']                 = 'booking/confirm/$1';
 $route['invoice']                             = 'invoice';
-$route['invoice/(:any)']                       = 'invoice/invoice/$1';
+$route['invoice/(:any)']                      = 'invoice/invoice/$1';
+$route['kuitansi']                            = 'kuitansi';
+// $route['kwitansi/(:any)']                       = 'invoice/invoice/$1';
 
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';

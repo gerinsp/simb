@@ -50,11 +50,4 @@ class Invoice extends CI_Controller
             return redirect('invoice');
         }
     }
-
-    public function dd($data)
-    {
-        echo "<pre>";
-        var_dump($data);
-        echo "</pre>";
-    }
 }

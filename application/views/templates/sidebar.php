@@ -73,6 +73,26 @@
                      </p>
                   </a>
                </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('invoice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "invoice") {
+                                                                           echo "active";
+                                                                        } ?>">
+                     <i class=" nav-icon fas fa-file-invoice-dollar"></i>
+                     <p>
+                        Data Invoice
+                     </p>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a href="<?= base_url('kuitansi') ?>" class="nav-link <?php if ($this->uri->segment(1) == "kuitansi") {
+                                                                           echo "active";
+                                                                        } ?>">
+                     <i class=" nav-icon fas fa-receipt"></i>
+                     <p>
+                        Data Kuitansi
+                     </p>
+                  </a>
+               </li>
             <?php } ?>
 
             <!-- User -->
