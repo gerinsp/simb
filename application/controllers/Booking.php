@@ -235,4 +235,20 @@ class Booking extends CI_Controller
         $this->load->view('templates/footer');
         $this->load->view('templates/script', $data);
     }
+
+    public function konfirmasi_pembayaran()
+    {
+        $idBooking = $this->input->post('idBooking');
+        $totalDp   = $this->input->post('total_dp');
+
+        $this->db->where('id_booking', $idBooking);
+        $this->db->update('booking', array('total_dp' => $totalDp));
+
+        $response = array(
+            'status' => 'ok',
+            'message' => 'Berhasil melakukan konfirmasi pembayaran.'
+        );
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
+    }
 }

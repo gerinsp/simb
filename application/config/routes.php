@@ -80,6 +80,8 @@ $route['kuitansi']                            = 'kuitansi';
 $route['service/(:num)/add']                  = 'service/add/$1';
 $route['service/(:num)/reject']               = 'service/reject/$1';
 $route['service/(:num)/save']                 = 'service/save/$1';
+$route['booking/konfirmasi-pembayaran']       = 'booking/konfirmasi_pembayaran';
+$route['pembayaran']                          = 'pembayaran/index';
 
 //Routes Admin
 $route['listadmin']                            = 'admin/listadmin';

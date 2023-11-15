@@ -36,7 +36,9 @@
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Nama Customer</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Waktu</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Deskripsi</th>
+                                            <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Down Payment</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Total Harga</th>
+                                            <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Sisa</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Status</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Aksi</th>
                                         </tr>
@@ -52,7 +54,9 @@
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="3%"><?php echo $data->nama_customer ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo format_indo($data->tanggal) ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->deskripsi ?></td>
+                                                <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->down_payment ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->total_harga ?></td>
+                                                <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->rest_bill ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%">
                                                     <span class="badge badge-primary"><?= $data->status ?></span>
                                                 </td>

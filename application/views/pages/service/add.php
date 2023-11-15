@@ -32,7 +32,7 @@
                                         <label for="nama_customer">Nama Customer</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="nama_customer" name="nama_customer" type="text" value="<?= $booking->nama; ?>" disabled>
+                                        <input class="form-control" required id="nama_customer" name="nama_customer" type="text" value="<?= $booking->nama; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
@@ -40,7 +40,7 @@
                                         <label for="tipe_kendaraan">Tipe dan Seri Mobil</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="tipe_kendaraan" name="tipe_kendaraan" type="text" value="<?= $booking->tipe_kendaraan; ?>" disabled>
+                                        <input class="form-control" required id="tipe_kendaraan" name="tipe_kendaraan" type="text" value="<?= $booking->tipe_kendaraan; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
@@ -48,7 +48,7 @@
                                         <label for="plat_nomor">Nomor Polisi</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="plat_nomor" name="plat_nomor" type="text" value="<?= $booking->plat_nomor; ?>" disabled>
+                                        <input class="form-control" required id="plat_nomor" name="plat_nomor" type="text" value="<?= $booking->plat_nomor; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">
@@ -56,7 +56,7 @@
                                         <label for="nama_service">Jenis Service</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input class="form-control" required id="nama_service" name="nama_service" type="text" value="<?= $booking->nama_service; ?>" disabled>
+                                        <input class="form-control" required id="nama_service" name="nama_service" type="text" value="<?= $booking->nama_service; ?>" readonly>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:10px">

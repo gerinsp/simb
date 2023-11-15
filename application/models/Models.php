@@ -11,6 +11,10 @@ class Models extends CI_Model
       return $query->result();
    }
 
+    public function getSingleRow($table, $where) {
+        return $this->db->get_where($table, $where)->row();
+    }
+
    public function Get_Where($where, $table)
    {
       $query = $this->db->get_where($table, $where);

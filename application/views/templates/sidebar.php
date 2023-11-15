@@ -112,6 +112,17 @@
                      </p>
                   </a>
                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('pembayaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "pembayaran" || $this->uri->segment(1) == "pembayaran") {
+                        echo "active";
+                    } ?>">
+                        <i class="nav-icon fas fa-wallet"></i>
+
+                        <p>
+                            Data Pembayaran
+                        </p>
+                    </a>
+                </li>
             <?php } ?>
             <?php if ($this->session->userdata('role_id') == 3) { ?>
                <li class="nav-item">

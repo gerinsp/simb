@@ -38,15 +38,20 @@
                             <div class="table-responsive">
                                 <table style="border-collapse: 1;color: #858796;border-bottom: 2px solid #e3e6f0;" id="dataTable" class="table tablelist table-bordered table-striped" width="100%" height="1px" cellspacing="0">
                                     <thead>
+                                    <tr>
+                                        <th rowspan="2" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;"><?php echo $this->lang->line('number'); ?></th>
+                                        <th rowspan="2" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Tanggal Booking</th>
+                                        <th rowspan="2" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Tipe Mobil</th>
+                                        <th rowspan="2" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Jenis Service</th>
+                                        <th rowspan="2" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Down Payment</th>
+                                        <th rowspan="2" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Estimasi Hari</th>
+                                        <th colspan="2" class="text-center" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Bukti Pembayaran</th>
+                                        <th rowspan="2" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Invoice</th>
+                                        <th rowspan="2" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Kuitansi</th>
+                                    </tr>
                                     <tr height="20px">
-                                        <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;"><?php echo $this->lang->line('number'); ?></th>
-                                        <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Tanggal Booking</th>
-                                        <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Tipe dan Seri Mobil</th>
-                                        <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Jenis Service</th>
-                                        <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Upload Bukti Pembayaran</th>
-                                        <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Lihat Bukti Pembayaran</th>
-                                        <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Invoice</th>
-                                        <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Kuitansi</th>
+                                        <th class="text-center" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Upload</th>
+                                        <th class="text-center" style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Lihat</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -59,10 +64,12 @@
                                             <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo format_indo($data->tanggal) ?></td>
                                             <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->tipe_kendaraan ?></td>
                                             <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->nama_service ?></td>
-                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-upload" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Upload</button></td>
-                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-lihat" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModal">Lihat</button></td>
-                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-invoice" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModal">Lihat Invoice</button></td>
-                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-kwitansi" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">Lihat Kwitansi</button></td>
+                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo rupiah($data->down_payment) ?></td>
+                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->estimasi_hari ?></td>
+                                            <td class="text-center" style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-upload" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Upload</button></td>
+                                            <td class="text-center" style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-lihat" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModal">Lihat</button></td>
+                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-invoice" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModal">Invoice</button></td>
+                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-kwitansi" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">Kwitansi</button></td>
                                         </tr>
                                         <?php
                                         $no++;

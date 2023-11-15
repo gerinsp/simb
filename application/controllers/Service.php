@@ -90,19 +90,31 @@ class Service extends CI_Controller
    }
    function updatestatusservice()
    {
+       $table = 'service';
+       $where = array(
+           'id_service' => $this->input->post('idserviceupdatestatus')
+       );
 
-      $table = 'service';
-      $where = array(
-         'id_service'          =>   $this->input->post('idserviceupdatestatus')
-      );
+       $currentStatus = $this->m->getSingleRow($table, $where)->status;
 
-      $data = array(
-         'status'     =>   "Proses Perbaikan",
-      );
-      $this->m->Update($where, $data, $table);
+       $newStatus = '';
+       switch ($currentStatus) {
+           case 'Menunggu Kedatangan':
+               $newStatus = 'Proses Perbaikan';
+               break;
+           case 'Proses Perbaikan':
+               $newStatus = 'Selesai';
+               break;
+       }
 
-      $this->session->set_flashdata('success', 'Status service berhasil diupdate');
-      redirect('listservice');
+       // Update status
+       $data = array(
+           'status' => $newStatus,
+       );
+       $this->m->Update($where, $data, $table);
+
+       $this->session->set_flashdata('success', 'Berhasil update status service menjadi Selesai');
+       redirect('invoice');
    }
    public function add($id_booking)
    {
@@ -133,6 +145,9 @@ class Service extends CI_Controller
    }
    public function save($id_booking)
    {
+       $result = $this->db
+           ->get_where('booking', array('id_booking' => $id_booking))
+           ->row();
       $this->db->insert('service', [
          'id_booking' => $id_booking,
          'nama_customer' => $this->input->post('nama_customer'),
@@ -146,10 +161,26 @@ class Service extends CI_Controller
          'total_harga' => $this->input->post('total_harga'),
          'status' => 'Menunggu Kedatangan'
       ]);
+       $id_service = $this->db->insert_id();
+
+       $now = date('d/m/Y');
+       $no_invoice = "INV" . mt_rand(1000, 9999) . $now;
+
+      $this->db->insert('invoice', [
+          'no_invoice' => $no_invoice,
+          'id_service' => $id_service,
+          'nama_customer' => $this->input->post('nama_customer'),
+          'tanggal' => date('Y-m-d'),
+          'deskripsi' => $this->input->post('deskripsi'),
+          'total_harga' => $this->input->post('total_harga'),
+          'down_payment' => $result->total_dp,
+          'rest_bill' => $this->input->post('total_harga') - $result->total_dp,
+          'status' => 'unpaid'
+      ]);
 
       $this->db->update('booking', ['id_status_booking' => 2], ['id_booking' => $id_booking]);
 
-      $this->session->set_flashdata('success', 'Service berhasil ditambahkan');
+      $this->session->set_flashdata('success', 'Berhasil menambahkan service dan generate invoice');
       redirect('listservice');
    }
 }
