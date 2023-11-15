@@ -20,49 +20,51 @@
 
      <!-- Main content -->
      <section class="content">
-        <div class="container-fluid">
+        <?php if ($this->session->userdata('role_id') == 2) { ?>
+           <div class="container-fluid">
 
-           <!-- Small boxes (Stat box) -->
-           <!-- <div class="row">
+              <!-- Small boxes (Stat box) -->
+              <div class="row">
 
-              ./col
+                 <!-- ./col
 
-              ./col
-              <div class="col-lg-3 col-6">
-                 small box
-                 <div class="small-box bg-warning">
-                    <div class="inner">
-                       <h3>44</h3>
+              ./col -->
+                 <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                       <div class="inner">
+                          <h3><?php foreach ($databooking as $databooking) ?> <?= $databooking->jumlahbooking ?></h3>
 
-                       <p>User Registrations</p>
+                          <p>Data Booking</p>
+                       </div>
+                       <div class="icon">
+                          <i class=" nav-icon fas fa-calendar-alt"></i>
+                       </div>
+
                     </div>
-                    <div class="icon">
-                       <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                  </div>
-              </div>
-              ./col
-              <div class="col-lg-3 col-6">
-                 small box
-                 <div class="small-box bg-danger">
-                    <div class="inner">
-                       <h3>65</h3>
+                 <!-- ./col -->
+                 <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                       <div class="inner">
+                          <h3><?php foreach ($datainvoice as $datainvoice) ?> <?= $datainvoice->jumlahinvoice ?></h3>
 
-                       <p>Unique Visitors</p>
+                          <p>Data Invoice</p>
+                       </div>
+                       <div class="icon">
+                          <i class=" nav-icon fas fa-file-invoice-dollar"></i>
+                       </div>
                     </div>
-                    <div class="icon">
-                       <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                  </div>
+                 <!-- ./col -->
               </div>
-              ./col
-           </div> -->
-           <!-- /.row -->
-           <!-- Main row -->
-           <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+              <!-- /.row -->
+              <!-- Main row -->
+              <!-- /.row (main row) -->
+           </div><!-- /.container-fluid -->
+        <?php } ?>
+
      </section>
      <!-- /.content -->
   </div>
