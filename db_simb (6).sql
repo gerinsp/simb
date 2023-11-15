@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2023 at 01:54 PM
+-- Generation Time: Nov 15, 2023 at 05:06 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 5.6.40
 
@@ -38,15 +38,16 @@ CREATE TABLE `tbl_booking` (
   `is_delivery` tinyint(1) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_status_booking` int(11) NOT NULL
+  `id_status_booking` int(11) NOT NULL,
+  `total_dp` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_booking`
 --
 
-INSERT INTO `tbl_booking` (`id_booking`, `tanggal`, `tipe_kendaraan`, `plat_nomor`, `id_tipe_service`, `deskripsi`, `is_delivery`, `alamat`, `id_user`, `id_status_booking`) VALUES
-(1, '2023-11-10', 'BMW', 'B001', 2, 'pengen di cat warna merah', 0, 'Cimahi Utara', 2, 1);
+INSERT INTO `tbl_booking` (`id_booking`, `tanggal`, `tipe_kendaraan`, `plat_nomor`, `id_tipe_service`, `deskripsi`, `is_delivery`, `alamat`, `id_user`, `id_status_booking`, `total_dp`) VALUES
+(1, '2023-11-10', 'BMW', 'B001', 2, 'pengen di cat warna merah', 0, 'Cimahi Utara', 2, 2, 500000);
 
 -- --------------------------------------------------------
 
@@ -55,6 +56,7 @@ INSERT INTO `tbl_booking` (`id_booking`, `tanggal`, `tipe_kendaraan`, `plat_nomo
 --
 
 CREATE TABLE `tbl_invoice` (
+  `id_invoice` int(11) NOT NULL,
   `no_invoice` varchar(255) NOT NULL,
   `id_service` int(11) NOT NULL,
   `nama_customer` varchar(255) NOT NULL,
@@ -70,8 +72,8 @@ CREATE TABLE `tbl_invoice` (
 -- Dumping data for table `tbl_invoice`
 --
 
-INSERT INTO `tbl_invoice` (`no_invoice`, `id_service`, `nama_customer`, `tanggal`, `deskripsi`, `total_harga`, `down_payment`, `rest_bill`, `status`) VALUES
-('INV/11/11/2023', 1, 'User', '2023-11-11', '-', 1000000, 300000, 700000, 'paid');
+INSERT INTO `tbl_invoice` (`id_invoice`, `no_invoice`, `id_service`, `nama_customer`, `tanggal`, `deskripsi`, `total_harga`, `down_payment`, `rest_bill`, `status`) VALUES
+(1, 'INV426614/11/2023', 4, 'User', '2023-11-14', 'pengen di cat warna merah', 1000000, 500000, 500000, 'paid');
 
 -- --------------------------------------------------------
 
@@ -80,8 +82,9 @@ INSERT INTO `tbl_invoice` (`no_invoice`, `id_service`, `nama_customer`, `tanggal
 --
 
 CREATE TABLE `tbl_kuitansi` (
+  `id_kuitansi` int(11) NOT NULL,
   `no_kuitansi` varchar(255) NOT NULL,
-  `no_invoice` varchar(255) NOT NULL,
+  `id_invoice` int(11) NOT NULL,
   `nama_customer` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
   `nama_service` varchar(255) NOT NULL,
@@ -92,8 +95,8 @@ CREATE TABLE `tbl_kuitansi` (
 -- Dumping data for table `tbl_kuitansi`
 --
 
-INSERT INTO `tbl_kuitansi` (`no_kuitansi`, `no_invoice`, `nama_customer`, `tanggal`, `nama_service`, `total_harga`) VALUES
-('kWT/11/11/2023\r\n', 'INV/11/11/2023', 'User', '2023-11-11', 'Repaint', 700000);
+INSERT INTO `tbl_kuitansi` (`id_kuitansi`, `no_kuitansi`, `id_invoice`, `nama_customer`, `tanggal`, `nama_service`, `total_harga`) VALUES
+(1, 'KWT988714/11/2023', 1, 'User', '2023-11-15', 'Repaint', 1000000);
 
 -- --------------------------------------------------------
 
@@ -176,7 +179,7 @@ CREATE TABLE `tbl_service` (
 --
 
 INSERT INTO `tbl_service` (`id_service`, `id_booking`, `nama_customer`, `tgl_mulai`, `tgl_selesai`, `tipe_kendaraan`, `plat_nomor`, `nama_service`, `id_mekanik`, `total_harga`, `deskripsi`, `status`) VALUES
-(1, 1, 'User', '2023-11-11 00:00:00', '2023-11-11 00:00:00', 'BMW', 'PL001', 'Repaint', 1, 1000000, '-', 'Selesai');
+(4, 1, 'User', '2023-11-15 00:00:00', '2023-11-21 00:00:00', 'BMW', 'B001', 'Repaint', 2, 1000000, 'pengen di cat warna merah', 'Selesai');
 
 -- --------------------------------------------------------
 
@@ -218,8 +221,8 @@ CREATE TABLE `tbl_tipe_service` (
 --
 
 INSERT INTO `tbl_tipe_service` (`id_tipe_service`, `nama_service`, `down_payment`, `estimasi_hari`, `estimasi_harga`) VALUES
-(1, 'Repair', 500000, '11 hari', '1 juta'),
-(2, 'Repaint', 300000, '3 hari', '800 rb');
+(1, 'Repair', 500000, '11 hari', '1000000'),
+(2, 'Repaint', 300000, '3 hari', '500000');
 
 -- --------------------------------------------------------
 
@@ -266,7 +269,8 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`id_user`, `nama`, `username`, `image`, `password`, `role_id`, `is_active`, `tanggal_daftar`) VALUES
 (1, 'Admin', 'admin', 'default.png', '$2y$10$XjA.oliMjALPjVPYeSu1cOFoA6ORU9E.cCMjoe9j7NjjEhBPwJ1yG', 2, 1, '2021-01-01'),
-(2, 'User', 'user', 'default.png', '$2a$12$C2VPV3UcJ9ADxzA0hExHKuyDGTD7bJI06G6bX/5pitmmukYia07Ji', 3, 1, '2023-11-09');
+(2, 'User', 'user', 'default.png', '$2a$12$C2VPV3UcJ9ADxzA0hExHKuyDGTD7bJI06G6bX/5pitmmukYia07Ji', 3, 1, '2023-11-09'),
+(3, 'Owner', 'owner', 'default.png', '$2a$12$C2VPV3UcJ9ADxzA0hExHKuyDGTD7bJI06G6bX/5pitmmukYia07Ji', 4, 1, '2023-11-12');
 
 --
 -- Indexes for dumped tables
@@ -282,13 +286,13 @@ ALTER TABLE `tbl_booking`
 -- Indexes for table `tbl_invoice`
 --
 ALTER TABLE `tbl_invoice`
-  ADD PRIMARY KEY (`no_invoice`);
+  ADD PRIMARY KEY (`id_invoice`);
 
 --
 -- Indexes for table `tbl_kuitansi`
 --
 ALTER TABLE `tbl_kuitansi`
-  ADD PRIMARY KEY (`no_kuitansi`);
+  ADD PRIMARY KEY (`id_kuitansi`);
 
 --
 -- Indexes for table `tbl_mekanik`
@@ -349,6 +353,18 @@ ALTER TABLE `tbl_booking`
   MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `tbl_invoice`
+--
+ALTER TABLE `tbl_invoice`
+  MODIFY `id_invoice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_kuitansi`
+--
+ALTER TABLE `tbl_kuitansi`
+  MODIFY `id_kuitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tbl_mekanik`
 --
 ALTER TABLE `tbl_mekanik`
@@ -370,7 +386,7 @@ ALTER TABLE `tbl_role`
 -- AUTO_INCREMENT for table `tbl_service`
 --
 ALTER TABLE `tbl_service`
-  MODIFY `id_service` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_service` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_status_booking`
@@ -394,7 +410,7 @@ ALTER TABLE `tbl_upload_dp`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
