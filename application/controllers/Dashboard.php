@@ -24,6 +24,13 @@ class Dashboard extends CI_Controller
       $data['title'] = 'SIM Bengkel Garasinos | Dashboard';
       // echo "Selamat Datang" . $data->nama;
 
+      $select = $this->db->select('*, count(id_booking) as jumlahbooking');
+      $select = $this->db->where('tanggal', date('y-m-d'));
+      $data['databooking'] = $this->m->Get_All('booking', $select);
+
+      $select = $this->db->select('*, count(id_invoice) as jumlahinvoice');
+      $select = $this->db->where('tanggal', date('y-m-d'));
+      $data['datainvoice'] = $this->m->Get_All('invoice', $select);
 
       $this->load->view('templates/head', $data);
       $this->load->view('templates/navigation', $data);
