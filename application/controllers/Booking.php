@@ -65,6 +65,7 @@ class Booking extends CI_Controller
         $select = $this->db->select('*');
         $select = $this->db->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service', 'left');
         $select = $this->db->join('status_booking', 'status_booking.id_status_booking = booking.id_status_booking', 'left');
+        $select = $this->db->where('id_user', $this->session->userdata('id_user'));
         $data['booking'] = $this->m->Get_All('booking', $select);
         //        dd($data['read']);
         $data['title'] = 'SIM Bengkel Garasinos | Detail Booking';
@@ -89,6 +90,7 @@ class Booking extends CI_Controller
 
         $select = $this->db->select('*');
         $select = $this->db->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service', 'left');
+        $select = $this->db->where('id_user', $this->session->userdata('id_user'));
         $data['read'] = $this->m->Get_All('booking', $select);
         //        dd($data['read']);
         $data['title'] = 'SIM Bengkel Garasinos | Detail Booking';
