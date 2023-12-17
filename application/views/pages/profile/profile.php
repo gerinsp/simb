@@ -23,7 +23,7 @@
             <div class="col-md-3">
                <!-- Profile Image -->
                <?= form_open_multipart('profile/edit'); ?>
-               <div class="card card-primary card-outline">
+               <div class="card card-warning card-outline">
                   <div class="card-body box-profile">
                      <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle" src="<?= base_url('assets/img/profile/') . $user->image ?>" alt="User profile picture">
@@ -43,7 +43,7 @@
                         </li>
                      </ul>
 
-                     <button type="submit" class="btn btn-primary btn-block">Ubah Profile</button>
+                     <button type="submit" class="btn btn-warning btn-block">Ubah Profile</button>
                   </div>
                   <!-- /.card-body -->
                </div>
@@ -52,7 +52,7 @@
             </div>
             <!-- /.col -->
             <div class="col-md-9">
-               <div class="card card-primary card-outline">
+               <div class="card card-warning card-outline">
                   <div class="card-header p-2">
                      <h4>Ubah Password</h4>
                   </div><!-- /.card-header -->
@@ -108,7 +108,7 @@
                            </div>
                         </div>
                         <!-- /.card-body -->
-                        <button type="submit" style="margin-top: 10px;" class="btn btn-primary" title="Simpan">Ubah Password</button>
+                        <button type="submit" style="margin-top: 10px;" class="btn btn-warning" title="Simpan">Ubah Password</button>
                      </form>
                      <!-- /.tab-content -->
                   </div><!-- /.card-body -->

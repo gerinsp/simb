@@ -26,7 +26,7 @@
                </div>
                <!-- /.col -->
                <div class="col-xs-4">
-                  <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+                  <button type="submit" class="btn btn-warning btn-block btn-flat">Login</button>
                </div>
                <!-- /.col -->
             </div>

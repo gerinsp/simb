@@ -37,9 +37,11 @@
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Tipe dan Seri Mobil</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Plat Nomor</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Jenis Service</th>
+                                            <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Tanggal Mulai Service</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Deskripsi</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Pengantaran dan Pengambilan</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Alamat</th>
+                                            <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Tanggal Konfirmasi</th>
                                             <th style=" padding: 0.75rem;vertical-align: top;border-top: 1px solid #e3e6f0;">Status</th>
                                         </tr>
                                     </thead>
@@ -54,19 +56,24 @@
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->tipe_kendaraan ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->plat_nomor ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->nama_service ?></td>
+                                                <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->tgl_mulai ? format_indo(date('Y-m-d', strtotime($data->tgl_mulai))) : '' ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->deskripsi ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->is_delivery == 1 ? 'Pribadi' : 'Non Pribadi'; ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->alamat ?></td>
+                                                <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->update_at ? format_indo(date('Y-m-d', strtotime($data->update_at))) : '' ?></td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%">
-                                                    <?php if ($data->id_status_booking == 1) : ?>
-                                                        <span class="badge badge-warning"><?= $data->nama ?></span>
-                                                    <?php endif; ?>
-                                                    <?php if ($data->id_status_booking == 2) : ?>
-                                                        <span class="badge badge-success"><?= $data->nama ?></span>
-                                                    <?php endif; ?>
-                                                    <?php if ($data->id_status_booking == 3) : ?>
-                                                        <span class="badge badge-danger"><?= $data->nama ?></span>
-                                                    <?php endif; ?>
+                                                        <?php if ($data->id_status_booking == 1) : ?>
+                                                            <span class="badge badge-warning"><?= $data->nama ?></span>
+                                                        <?php endif; ?>
+                                                        <?php if ($data->id_status_booking == 2) : ?>
+                                                            <span class="badge badge-success"><?= $data->nama ?></span>
+                                                        <?php endif; ?>
+                                                        <?php if ($data->id_status_booking == 3) : ?>
+                                                            <span class="badge badge-danger"><?= $data->nama ?></span>
+                                                        <?php endif; ?>
+                                                        <?php if ($data->id_status_booking == 4) : ?>
+                                                            <span class="badge badge-primary"><?= $data->nama ?></span>
+                                                        <?php endif; ?>
                                                 </td>
                                             </tr>
                                         <?php

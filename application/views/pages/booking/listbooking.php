@@ -59,7 +59,7 @@
                                                     <span class="badge badge-primary"><?= $data->nama ?></span>
                                                 </td>
                                                 <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="30%">
-                                                    <button id="btn-confirm" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModal">Konfirmasi</button>
+                                                    <button id="btn-confirm" onclick="confirmBooking('<?= $data->id_booking ?>')" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModal">Konfirmasi</button>
 <!--                                                    <a href="--><?php //= base_url() ?><!--service/--><?php //= $data->id_booking; ?><!--/add" class="btn btn-sm btn-success">Konfirmasi</a>-->
                                                     <a href="<?= base_url() ?>service/<?= $data->id_booking; ?>/reject" class="btn btn-sm btn-danger">Tolak</a>
                                                 </td>
@@ -145,11 +145,11 @@
 <!-- /.content-wrapper -->
 <script>
     const modalBody = document.getElementById('modal-body')
-    const btnConfirm = document.getElementById('btn-confirm');
-    btnConfirm.addEventListener('click', () => {
-        const idBooking = btnConfirm.getAttribute('data-idbooking');
-        const formData = new FormData()
 
+    function confirmBooking(id_booking) {
+        const idBooking = id_booking
+        const formData = new FormData()
+        console.log(id_booking)
         formData.append('idBooking', idBooking)
 
         fetch('booking/lihatbuktipembayaran', {
@@ -226,7 +226,7 @@
                                 title: 'Berhasil',
                                 text: data.message
                             }).then(function () {
-                                window.location.href = '<?= base_url() ?>service/<?= $data->id_booking; ?>/add';
+                                window.location.href = `<?= base_url() ?>service/${id_booking}/add`;
                             });
                         }
 
@@ -235,5 +235,5 @@
                     .catch(error => console.error('Error:', error));
             }
         })
-    })
+    }
 </script>

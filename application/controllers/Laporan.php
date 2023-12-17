@@ -58,4 +58,28 @@ class Laporan extends CI_Controller
         $this->load->view('templates/footer');
         $this->load->view('templates/script', $data);
     }
+
+    public function laporan_pengeluaran()
+    {
+        $table = 'user';
+        $where = array(
+            'id_user'      =>   $this->session->userdata('id_user')
+        );
+
+        $data['user'] = $this->m->Get_Where($where, $table);
+
+        $select = $this->db->select('*');
+        $data['read'] = $this->m->Get_All('pengeluaran', $select);
+
+        $data['title'] = 'SIM Bengkel Garasinos | Laporan Pengeluaran';
+        // echo "Selamat Datang" . $data->nama;
+
+
+        $this->load->view('templates/head', $data);
+        $this->load->view('templates/navigation', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('pages/laporan/laporan-pengeluaran', $data);
+        $this->load->view('templates/footer');
+        $this->load->view('templates/script', $data);
+    }
 }

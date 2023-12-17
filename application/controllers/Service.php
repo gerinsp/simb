@@ -88,7 +88,7 @@ class Service extends CI_Controller
       $this->session->set_flashdata('success', 'Data service berhasil dihapus');
       redirect('listservice');
    }
-   function updatestatusservice()
+   function updatestatusservice($id_booking)
    {
        $table = 'service';
        $where = array(
@@ -113,6 +113,10 @@ class Service extends CI_Controller
        );
        $this->m->Update($where, $data, $table);
 
+       if ($newStatus == 'Selesai') {
+           $this->db->update('booking', ['id_status_booking' => 4], ['id_booking' => $id_booking]);
+       }
+
        $this->session->set_flashdata('success', 'Berhasil update status service menjadi Selesai');
        redirect('invoice');
    }
@@ -120,8 +124,9 @@ class Service extends CI_Controller
    {
       $data['user'] = $this->m->Get_Where(['id_user' => $this->session->userdata('id_user')], 'user');
 
-      $data['booking'] = $this->db->select('user.nama, tipe_service.nama_service, booking.id_booking, booking.tipe_kendaraan, booking.plat_nomor, booking.deskripsi')
-         ->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service')
+      $data['booking'] = $this->db->select('user.nama, tipe_service.nama_service, booking.id_booking, mobil.tipe_kendaraan, mobil.plat_nomor, booking.deskripsi')
+         ->join('mobil', 'mobil.id_mobil = booking.id_mobil', 'left')
+         ->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service', 'left')
          ->join('user', 'user.id_user = booking.id_user')
          ->get_where('booking', ['id_booking' => $id_booking])->row();
 
@@ -178,9 +183,39 @@ class Service extends CI_Controller
           'status' => 'unpaid'
       ]);
 
-      $this->db->update('booking', ['id_status_booking' => 2], ['id_booking' => $id_booking]);
+
+      $this->db->update('booking', [
+          'id_status_booking' => 2,
+          'update_at' => date('Y-m-d')
+      ], ['id_booking' => $id_booking]);
 
       $this->session->set_flashdata('success', 'Berhasil menambahkan service dan generate invoice');
       redirect('listservice');
+   }
+
+   public function history_service()
+   {
+       $table = 'user';
+       $where = array(
+           'id_user'      =>   $this->session->userdata('id_user')
+       );
+
+       $data['user'] = $this->m->Get_Where($where, $table);
+
+       $select = $this->db->select('*');
+       $select = $this->db->join('service', 'service.id_booking = booking.id_booking', 'left');
+       $select = $this->db->where('id_user', $this->session->userdata('id_user'));
+       $select = $this->db->where('service.status', 'Selesai');
+       $data['read'] = $this->m->Get_All('booking', $select);
+
+       $data['title'] = 'SIM Bengkel Garasinos | List Data Service';
+       // echo "Selamat Datang" . $data->nama;
+
+       $this->load->view('templates/head', $data);
+       $this->load->view('templates/navigation', $data);
+       $this->load->view('templates/sidebar', $data);
+       $this->load->view('pages/service/historyservice', $data);
+       $this->load->view('templates/footer');
+       $this->load->view('templates/script', $data);
    }
 }

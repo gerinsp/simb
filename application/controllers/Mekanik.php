@@ -49,6 +49,7 @@ class Mekanik extends CI_Controller
    }
    function ubahmekanik()
    {
+       dd('test');
       $id_mekanik = $this->input->post('idmekanik');
 
       $table = 'mekanik';

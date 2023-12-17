@@ -96,6 +96,59 @@
    </div>
 </div>
 
+<div class="modal fade" id="modaleditpengeluaran" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutLabel">Ubah Data Pengeluaran</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <?= form_open('', 'class="d-inline" id="formeditpengeluaran"') ?>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="">Nama Produk</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input class="form-control" required name="namaproduk" id="namaproduk" type="text">
+                        <input class="form-control" name="idpengeluaran" id="idpengeluaran" type="hidden">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-3">
+                        <label for="">Merk</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input class="form-control" required name="merk" id="merk" type="text">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-3">
+                        <label for="">Qty</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input class="form-control" required name="qty" id="qty" type="number">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-3">
+                        <label for="">Total Harga</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input class="form-control" required name="totalharga" id="totalharga" type="number">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success"> <?php echo $this->lang->line('change'); ?> </button> <button class="btn btn-danger" type="button" data-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
+            </div>
+            <?= form_close(); ?>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modaleditadmin" tabindex="-1" role="dialog" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">

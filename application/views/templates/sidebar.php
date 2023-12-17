@@ -33,7 +33,7 @@
                with font-awesome or any other icon font library -->
             <li class="nav-item">
                <a href="<?= base_url('dashboard') ?>" class="nav-link <?php if ($this->uri->segment(1) == "dashboard") {
-                                                                           echo "active";
+                                                                           echo "active bg-warning";
                                                                         } ?>"">
                   <i class=" nav-icon fas fa-tachometer-alt"></i>
                   <p>
@@ -44,7 +44,7 @@
             <?php if ($this->session->userdata('role_id') == 2) { ?>
                <li class="nav-item">
                   <a href="<?= base_url('listmekanik') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listmekanik") {
-                                                                              echo "active";
+                                                                              echo "active bg-warning";
                                                                            } ?>">
                      <i class=" nav-icon fas fa-users"></i>
                      <p>
@@ -54,7 +54,7 @@
                </li>
                <li class="nav-item">
                   <a href="<?= base_url('listadmin') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listadmin") {
-                                                                              echo "active";
+                                                                              echo "active bg-warning";
                                                                            } ?>">
                      <i class=" nav-icon fas fa-users"></i>
                      <p>
@@ -64,7 +64,7 @@
                </li>
                <li class="nav-item">
                   <a href="<?= base_url('listcustomer') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listcustomer") {
-                                                                                 echo "active";
+                                                                                 echo "active bg-warning";
                                                                               } ?>">
                      <i class=" nav-icon fas fa-users"></i>
                      <p>
@@ -74,7 +74,7 @@
                </li>
                <li class="nav-item">
                   <a href="<?= base_url('book') ?>" class="nav-link <?php if ($this->uri->segment(1) == "book") {
-                                                                        echo "active";
+                                                                        echo "active bg-warning";
                                                                      } ?>">
                      <i class=" nav-icon fas fa-calendar-alt"></i>
                      <p>
@@ -84,7 +84,7 @@
                </li>
                <li class="nav-item">
                   <a href="<?= base_url('invoice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "invoice") {
-                                                                           echo "active";
+                                                                           echo "active bg-warning";
                                                                         } ?>">
                      <i class=" nav-icon fas fa-file-invoice-dollar"></i>
                      <p>
@@ -94,7 +94,7 @@
                </li>
                <li class="nav-item">
                   <a href="<?= base_url('Kuitansi') ?>" class="nav-link <?php if ($this->uri->segment(1) == "Kuitansi") {
-                                                                           echo "active";
+                                                                           echo "active bg-warning";
                                                                         } ?>">
                      <i class=" nav-icon fas fa-receipt"></i>
                      <p>
@@ -104,7 +104,7 @@
                </li>
                <li class="nav-item">
                   <a href="<?= base_url('listservice') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listservice" || $this->uri->segment(1) == "service") {
-                                                                              echo "active";
+                                                                              echo "active bg-warning";
                                                                            } ?>">
                      <i class=" nav-icon fas fa-book"></i>
                      <p>
@@ -114,7 +114,7 @@
                </li>
                 <li class="nav-item">
                     <a href="<?= base_url('pembayaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "pembayaran" || $this->uri->segment(1) == "pembayaran") {
-                        echo "active";
+                        echo "active bg-warning";
                     } ?>">
                         <i class="nav-icon fas fa-wallet"></i>
 
@@ -123,11 +123,21 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('listpengeluaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "listpengeluaran") {
+                        echo "active bg-warning";
+                    } ?>">
+                        <i class=" nav-icon fas fa-money-bill"></i>
+                        <p>
+                            Data Pengeluaran
+                        </p>
+                    </a>
+                </li>
             <?php } ?>
             <?php if ($this->session->userdata('role_id') == 3) { ?>
                <li class="nav-item">
                   <a href="<?= base_url('booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "booking") {
-                                                                           echo "active";
+                                                                           echo "active bg-warning";
                                                                         } ?>">
                      <i class="nav-icon fas fa-calendar-alt"></i>
                      <p>
@@ -138,7 +148,7 @@
 
                <li class="nav-item">
                   <a href="<?= base_url('upload-pembayaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "upload-pembayaran") {
-                                                                                    echo "active";
+                                                                                    echo "active bg-warning";
                                                                                  } ?>">
                      <i class="nav-icon fas fa-cloud-upload-alt"></i>
                      <p>
@@ -149,7 +159,7 @@
 
                <li class="nav-item">
                   <a href="<?= base_url('detail-booking') ?>" class="nav-link <?php if ($this->uri->segment(1) == "detail-booking") {
-                                                                                 echo "active";
+                                                                                 echo "active bg-warning";
                                                                               } ?>">
                      <i class="nav-icon fas fa-info-circle"></i>
                      <p>
@@ -158,11 +168,22 @@
                   </a>
                </li>
 
+                <li class="nav-item">
+                    <a href="<?= base_url('history-service') ?>" class="nav-link <?php if ($this->uri->segment(1) == "history-service") {
+                        echo "active bg-warning";
+                    } ?>">
+                        <i class="nav-icon fas fa-history"></i>
+                        <p>
+                            History Service
+                        </p>
+                    </a>
+                </li>
+
             <?php } ?>
             <?php if ($this->session->userdata('role_id') == 4) : ?>
                <li class="nav-item">
                   <a href="<?= base_url('laporan-service') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-service") {
-                                                                                    echo "active";
+                                                                                    echo "active bg-warning";
                                                                                  } ?>">
                      <i class="nav-icon fas fa-cogs"></i>
                      <p>
@@ -173,7 +194,7 @@
 
                <li class="nav-item">
                   <a href="<?= base_url('laporan-mekanik') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-mekanik") {
-                                                                                    echo "active";
+                                                                                    echo "active bg-warning";
                                                                                  } ?>">
                      <i class="nav-icon fas fa-wrench"></i>
                      <p>
@@ -181,11 +202,21 @@
                      </p>
                   </a>
                </li>
+                <li class="nav-item">
+                    <a href="<?= base_url('laporan-pengeluaran') ?>" class="nav-link <?php if ($this->uri->segment(1) == "laporan-pengeluaran") {
+                        echo "active bg-warning";
+                    } ?>">
+                        <i class="nav-icon fas fa-money-bill"></i>
+                        <p>
+                            Laporan Pengeluaran
+                        </p>
+                    </a>
+                </li>
             <?php endif; ?>
             <li class="nav-header">Profil</li>
             <li class="nav-item">
                <a href="<?= base_url('profile') ?>" class="nav-link <?php if ($this->uri->segment(1) == "profile") {
-                                                                        echo "active";
+                                                                        echo "active bg-warning";
                                                                      } ?>">
                   <i class=" nav-icon fas fa-user"></i>
                   <p>Profil</p>

@@ -83,7 +83,8 @@ class Models extends CI_Model
    public function Get_Onprocess_Booking()
    {
       return $this->db->select('*')
-         ->join('status_booking', 'status_booking.id_status_booking = booking.id_status_booking')
+         ->join('mobil', 'mobil.id_mobil = booking.id_mobil', 'left')
+         ->join('status_booking', 'status_booking.id_status_booking = booking.id_status_booking', 'left')
          ->order_by('tanggal', 'DESC')
          ->get_where('booking', ['booking.id_status_booking' => 1])
          ->result();

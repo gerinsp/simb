@@ -54,13 +54,19 @@ $route['default_controller'] = 'home';
 $route['registration'] = 'auth/registration';
 $route['login']      = 'auth/index';
 $route['blocked']    = 'auth/blocked';
+//route dashboard
+$route['dashboard-user']                       = 'dashboard/user';
 
 //route laporan
 $route['laporan-service']                      = 'laporan/laporan_service';
 $route['laporan-mekanik']                      = 'laporan/laporan_mekanik';
+$route['laporan-pengeluaran']                  = 'laporan/laporan_pengeluaran';
 
 //Routes Mekanik
 $route['listmekanik']                          = 'mekanik/listmekanik';
+
+//Routes Pengeluaran
+$route['listpengeluaran']                      = 'pengeluaran/listpengeluaran';
 
 //Route Booking
 $route['booking']                              = 'booking/booking';
@@ -71,6 +77,8 @@ $route['upload']                               = 'booking/upload';
 $route['lihatbuktipembayaran']                 = 'booking/lihatbuktipembayaran';
 $route['lihat-invoice']                        = 'booking/lihatinvoice';
 $route['lihat-kuitansi']                       = 'booking/lihatkuitansi';
+$route['mobil']                                = 'booking/mobil_save';
+$route['history-service']                      = 'service/history_service';
 
 // Rountes Dashboard Booking
 $route['book']                                = 'booking/listbooking';

@@ -50,6 +50,20 @@
         .dataTables_length {
             margin-right: 20px; /* Sesuaikan dengan margin yang Anda inginkan */
         }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .modal-body, .modal-body * {
+                visibility: visible;
+            }
+
+            .modal-body {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
     </style>
 </head>
 

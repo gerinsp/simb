@@ -66,10 +66,10 @@
                                             <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->nama_service ?></td>
                                             <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo rupiah($data->down_payment) ?></td>
                                             <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><?php echo $data->estimasi_hari ?></td>
-                                            <td class="text-center" style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-upload" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Upload</button></td>
-                                            <td class="text-center" style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-lihat" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModal">Lihat</button></td>
-                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-invoice" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModal">Invoice</button></td>
-                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-kwitansi" data-idbooking="<?= $data->id_booking ?>" class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">Kwitansi</button></td>
+                                            <td class="text-center" style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-upload" onclick="uploads('<?= $data->id_booking ?>')" data-idbooking="<?= $data->id_booking ?>" class="btn-upload btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">Upload</button></td>
+                                            <td class="text-center" style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-lihat" onclick="lihat('<?= $data->id_booking ?>')" data-idbooking="<?= $data->id_booking ?>" class="btn-lihat btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModal">Lihat</button></td>
+                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-invoice" onclick="invoice('<?= $data->id_booking ?>')" data-idbooking="<?= $data->id_booking ?>" class="btn-invoice btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModal">Invoice</button></td>
+                                            <td style="vertical-align: top;border-top: 1px solid #e3e6f0;" width="12%"><button id="btn-kwitansi" onclick="kwitansi('<?= $data->id_booking ?>')" data-idbooking="<?= $data->id_booking ?>" class="btn-kwitansi btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal">Kwitansi</button></td>
                                         </tr>
                                         <?php
                                         $no++;
@@ -117,21 +117,23 @@
     const modalTitle = document.getElementById('modal-title')
     const modalBody = document.getElementById('modal-body')
     const btnSave = document.getElementById('btn-save')
-    const btnUpload = document.getElementById('btn-upload')
-    const btnLihat = document.getElementById('btn-lihat')
-    const btnInvoice = document.getElementById('btn-invoice')
-    const btnKwitansi = document.getElementById('btn-kwitansi')
     const modalFooter = document.getElementById('modal-footer')
     const modal = document.getElementById('modal-content')
     const logo = '<?php echo base_url("assets/img/logo3.png"); ?>';
 
-    btnKwitansi.addEventListener('click', () => {
-        modal.style.width = '700px'
-        modalTitle.innerText = 'Lihat Kwitansi'
-        modalFooter.innerHTML = ''
-        const idBooking = btnUpload.getAttribute('data-idbooking');
-        const formData = new FormData()
+    function cetakHalaman() {
+        window.print()
+    }
 
+    function kwitansi(id_booking) {
+        modal.style.width = '800px'
+        modalTitle.innerHTML = `
+                                 Lihat Kwitansi &nbsp; <button class="btn btn-sm btn-warning" onclick="cetakHalaman()">Print</button>
+                               `
+        modalFooter.innerHTML = ''
+        const idBooking = id_booking
+        const formData = new FormData()
+        console.log(idBooking)
         formData.append('idBooking', idBooking)
         fetch('lihat-kuitansi', {
             method: 'POST',
@@ -141,7 +143,8 @@
             .then(res => {
                 console.log('Server response:', res);
                 if (res.status === 'ok') {
-                    modalBody.innerHTML = `
+                    if(res.data != '') {
+                        modalBody.innerHTML = `
                        <div>
                           <div class="row">
                             <div class="col-md-6">
@@ -198,17 +201,25 @@
                         </div>
                        </div>
                     `
+                    } else {
+                        modalBody.innerHTML = `
+                            <div style="text-align: center;">
+                                <p>Data Kwitansi belum tersedia.</p>
+                            </div>
+                        `;
+                    }
                 }
 
             })
             .catch(error => console.error('Error:', error));
-    })
+    }
 
-    btnInvoice.addEventListener('click', () => {
+    function invoice(id_booking) {
+        console.log('id booking: ' + id_booking)
         modal.style.width = ''
         modalTitle.innerText = 'Lihat Invoice'
         modalFooter.innerHTML = ''
-        const idBooking = btnUpload.getAttribute('data-idbooking');
+        const idBooking = id_booking
         const formData = new FormData()
 
         formData.append('idBooking', idBooking)
@@ -220,7 +231,8 @@
             .then(res => {
                 console.log('Server response:', res);
                 if (res.status === 'ok') {
-                    modalBody.innerHTML = `
+                    if (res.data != '') {
+                        modalBody.innerHTML = `
                        <div>
                           <div class="row">
                             <div class="col-md-6">
@@ -303,17 +315,24 @@
                           </div>
                        </div>
                     `
+                    } else {
+                        modalBody.innerHTML = `
+                            <div style="text-align: center;">
+                                <p>Data Invoice belum tersedia.</p>
+                            </div>
+                        `;
+                    }
                 }
 
             })
             .catch(error => console.error('Error:', error));
-    })
+    }
 
-    btnLihat.addEventListener('click', () => {
+    function lihat(id_booking) {
         modal.style.width = ''
         modalTitle.innerText = 'Bukti Pembayaran'
         modalFooter.innerHTML = ''
-        const idBooking = btnUpload.getAttribute('data-idbooking');
+        const idBooking = id_booking
         const formData = new FormData()
 
         formData.append('idBooking', idBooking)
@@ -328,47 +347,55 @@
                 if (data.status === 'ok') {
                     modalBody.innerHTML = '';
 
-                    let kolom = 0;
-                    if (data.data.length == 1) {
-                        kolom = 12
-                    } else if (data.data.length == 2) {
-                        kolom = 6
+                    if(data.data != '') {
+                        let kolom = 0;
+                        if (data.data.length == 1) {
+                            kolom = 12
+                        } else if (data.data.length == 2) {
+                            kolom = 6
+                        } else {
+                            kolom = 4
+                        }
+
+                        const divElement = document.createElement('div')
+                        divElement.classList.add('d-flex', 'flex-wrap');
+                        data.data.forEach((item, index) => {
+                            const imgElement = document.createElement('img');
+
+                            imgElement.src = item.image;
+                            imgElement.style.width = '250px'
+
+                            imgElement.alt = 'Image ' + (index + 1);
+
+                            imgElement.classList.add('img-fluid');
+
+                            const columnDiv = document.createElement('div');
+
+                            columnDiv.classList.add('col-md-' + kolom, 'mb-4');
+
+                            columnDiv.appendChild(imgElement);
+                            divElement.appendChild(columnDiv)
+                            modalBody.appendChild(divElement);
+                        });
                     } else {
-                        kolom = 4
+                        modalBody.innerHTML = `
+                            <div style="text-align: center;">
+                                <p>Anda belum mengupload bukti pembayaran.</p>
+                            </div>
+                        `;
                     }
-
-                    const divElement = document.createElement('div')
-                    divElement.classList.add('d-flex', 'flex-wrap');
-                    data.data.forEach((item, index) => {
-                        const imgElement = document.createElement('img');
-
-                        imgElement.src = item.image;
-                        imgElement.style.width = '250px'
-
-                        imgElement.alt = 'Image ' + (index + 1);
-
-                        imgElement.classList.add('img-fluid');
-
-                        const columnDiv = document.createElement('div');
-
-                        columnDiv.classList.add('col-md-' + kolom, 'mb-4');
-
-                        columnDiv.appendChild(imgElement);
-                        divElement.appendChild(columnDiv)
-                        modalBody.appendChild(divElement);
-                    });
                 }
 
             })
             .catch(error => console.error('Error:', error));
-    })
+    }
 
     let fileCount = 1;
-
-    btnUpload.addEventListener('click', () => {
+    function uploads(id_booking) {
+        console.log('button ini di klik')
         modal.style.width = ''
         modalBody.innerHTML = ''
-        const idBooking = btnUpload.getAttribute('data-idbooking');
+        const idBooking = id_booking
 
         console.log('test', modalTitle);
         modalTitle.innerText = "Upload Bukti Transfer";
@@ -378,13 +405,13 @@
                         `;
 
         modalBody.innerHTML = `
-        <div id="fileInputs">
-            <div class="input-group mb-2">
-                <input type="file" class="form-control mr-2" name="input" id="input1" multiple />
-                <button class="btn btn-success add-file" type="button" style="font-weight: bolder;">+</button>
-            </div>
-        </div>
-    `;
+                <div id="fileInputs">
+                    <div class="input-group mb-2">
+                        <input type="file" class="form-control mr-2" name="input" id="input1" multiple />
+                        <button class="btn btn-success add-file" type="button" style="font-weight: bolder;">+</button>
+                    </div>
+                </div>
+            `;
 
         // Function to add a new file input
         function addFileInput() {
@@ -454,6 +481,6 @@
                 })
                 .catch(error => console.error('Error:', error));
         });
-    });
+    }
 </script>
 <!-- End Function Javascript -->

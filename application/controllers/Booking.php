@@ -22,6 +22,10 @@ class Booking extends CI_Controller
         $select = $this->db->select('*');
         $data['jenisservice'] = $this->m->Get_All('tipe_service', $select);
 
+        $select = $this->db->select('*');
+        $select = $this->db->where('id_user', $this->session->userdata('id_user'));
+        $data['mobil'] = $this->m->Get_All('mobil', $select);
+
         $data['title'] = 'SIM Bengkel Garasinos | Booking';
         // echo "Selamat Datang" . $data->nama;
 
@@ -37,8 +41,7 @@ class Booking extends CI_Controller
     {
         $data = array(
             'tanggal'            => $this->input->post('tanggal'),
-            'tipe_kendaraan'     => $this->input->post('tipe_kendaraan'),
-            'plat_nomor'         => $this->input->post('plat_nomor'),
+            'id_mobil'           => $this->input->post('id_mobil'),
             'id_tipe_service'    => $this->input->post('id_tipe_service'),
             'deskripsi'          => $this->input->post('deskripsi'),
             'is_delivery'        => $this->input->post('is_delivery'),
@@ -53,8 +56,25 @@ class Booking extends CI_Controller
         redirect('detail-booking');
     }
 
+    public function mobil_save()
+    {
+        $data = array(
+            'tipe_kendaraan'     => $this->input->post('tipe_kendaraan'),
+            'plat_nomor'         => $this->input->post('plat_nomor'),
+            'tahun'              => $this->input->post('tahun'),
+            'id_user'            => $this->session->userdata('id_user'),
+        );
+
+        $this->m->Save($data, 'mobil');
+
+        $this->session->set_flashdata('success', 'Data kendaraan berhasil disimpan.');
+        redirect('booking');
+    }
+
     public function detail_booking()
     {
+        $status = $this->input->get('status');
+
         $table = 'user';
         $where = array(
             'id_user'      =>   $this->session->userdata('id_user')
@@ -62,12 +82,17 @@ class Booking extends CI_Controller
 
         $data['user'] = $this->m->Get_Where($where, $table);
 
-        $select = $this->db->select('*');
+        $select = $this->db->select('*, tipe_service.nama_service, booking.deskripsi');
         $select = $this->db->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service', 'left');
+        $select = $this->db->join('service', 'service.id_booking = booking.id_booking', 'left');
         $select = $this->db->join('status_booking', 'status_booking.id_status_booking = booking.id_status_booking', 'left');
-        $select = $this->db->where('id_user', $this->session->userdata('id_user'));
+        $select = $this->db->join('mobil', 'mobil.id_mobil = booking.id_mobil', 'left');
+        $select = $this->db->where('booking.id_user', $this->session->userdata('id_user'));
+        if ($status) {
+            $select = $this->db->where('booking.id_status_booking', $status);
+        }
         $data['booking'] = $this->m->Get_All('booking', $select);
-        //        dd($data['read']);
+//                dd($data['booking']);
         $data['title'] = 'SIM Bengkel Garasinos | Detail Booking';
         // echo "Selamat Datang" . $data->nama;
 
@@ -90,7 +115,8 @@ class Booking extends CI_Controller
 
         $select = $this->db->select('*');
         $select = $this->db->join('tipe_service', 'tipe_service.id_tipe_service = booking.id_tipe_service', 'left');
-        $select = $this->db->where('id_user', $this->session->userdata('id_user'));
+        $select = $this->db->join('mobil', 'mobil.id_mobil = booking.id_mobil', 'left');
+        $select = $this->db->where('booking.id_user', $this->session->userdata('id_user'));
         $data['read'] = $this->m->Get_All('booking', $select);
         //        dd($data['read']);
         $data['title'] = 'SIM Bengkel Garasinos | Detail Booking';
@@ -158,7 +184,6 @@ class Booking extends CI_Controller
     public function lihatinvoice()
     {
         $idBooking = $this->input->post('idBooking');
-
         $select = $this->db->select('*');
         $select = $this->db->join('service', 'service.id_service = invoice.id_service');
         $select = $this->db->where('id_booking', $idBooking);
@@ -166,22 +191,24 @@ class Booking extends CI_Controller
 
         $data['invoices'] = [];
 
-        foreach ($data['read'] as $invoice) {
-            $data['invoices'][] = [
-                'no_invoice' => $invoice->no_invoice,
-                'nama_customer' => strtolower($invoice->nama_customer),
-                'tanggal' => format_indo($invoice->tanggal),
-                'tipe_mobil' => $invoice->tipe_kendaraan,
-                'jenis_service' => $invoice->nama_service,
-                'dp' => rupiah($invoice->down_payment),
-                'total' => rupiah($invoice->total_harga),
-                'sisa' => rupiah($invoice->rest_bill),
-            ];
+        if (count($data['read']) != 0) {
+            foreach ($data['read'] as $invoice) {
+                $data['invoices'][] = [
+                    'no_invoice' => $invoice->no_invoice,
+                    'nama_customer' => strtolower($invoice->nama_customer),
+                    'tanggal' => format_indo($invoice->tanggal),
+                    'tipe_mobil' => $invoice->tipe_kendaraan,
+                    'jenis_service' => $invoice->nama_service,
+                    'dp' => rupiah($invoice->down_payment),
+                    'total' => rupiah($invoice->total_harga),
+                    'sisa' => rupiah($invoice->rest_bill),
+                ];
+            }
         }
 
         $response = array(
             'status' => 'ok',
-            'data' => $data['invoices'][0]
+            'data' => count($data['invoices']) != 0 ? $data['invoices'][0] : $data['invoices']
         );
 
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
@@ -193,30 +220,32 @@ class Booking extends CI_Controller
 
         $this->db->select('*');
         $this->db->from('kuitansi');
-        $this->db->join('invoice', 'invoice.no_invoice = kuitansi.no_invoice', 'left');
+        $this->db->join('invoice', 'invoice.id_invoice = kuitansi.id_invoice', 'left');
         $this->db->join('service', 'service.id_service = invoice.id_service', 'left');
-        $this->db->where('id_booking', 1);
+        $this->db->where('id_booking', $idBooking);
         $query = $this->db->get();
         $data['read'] = $query->result();
 
         $data['kwitansi'] = [];
 
-        foreach ($data['read'] as $kwitansi) {
-            $data['kwitansi'][] = [
-                'no_invoice' => $kwitansi->no_invoice,
-                'no_kwitansi' => $kwitansi->no_kuitansi,
-                'nama_customer' => ucwords($kwitansi->nama_customer),
-                'tanggal' => format_indo($kwitansi->tanggal),
-                'tipe_mobil' => strtoupper($kwitansi->tipe_kendaraan),
-                'jenis_service' => strtoupper($kwitansi->nama_service),
-                'total' => rupiah($kwitansi->total_harga),
-                'total_harga' => ucwords(convertToWords($kwitansi->total_harga))
-            ];
+        if (count($data['read']) != 0) {
+            foreach ($data['read'] as $kwitansi) {
+                $data['kwitansi'][] = [
+                    'no_invoice' => $kwitansi->no_invoice,
+                    'no_kwitansi' => $kwitansi->no_kuitansi,
+                    'nama_customer' => ucwords($kwitansi->nama_customer),
+                    'tanggal' => format_indo($kwitansi->tanggal),
+                    'tipe_mobil' => strtoupper($kwitansi->tipe_kendaraan),
+                    'jenis_service' => strtoupper($kwitansi->nama_service),
+                    'total' => rupiah($kwitansi->total_harga),
+                    'total_harga' => ucwords(convertToWords($kwitansi->total_harga))
+                ];
+            }
         }
 
         $response = array(
             'status' => 'ok',
-            'data' => $data['kwitansi'][0]
+            'data' => count($data['read']) != 0 ? $data['kwitansi'][0] : $data['kwitansi']
         );
 
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
@@ -224,8 +253,15 @@ class Booking extends CI_Controller
     public function listbooking()
     {
         $data['user'] = $this->m->Get_Where(['id_user' => $this->session->userdata('id_user')], 'user');
+
         $data['onprocessbooking'] = $this->m->Get_Onprocess_Booking();
-        $data['allbooking'] = $this->db->order_by('tanggal', 'DESC')->get('booking')->result();
+
+        $this->db->select('*');
+        $this->db->from('booking');
+        $this->db->join('mobil', 'mobil.id_mobil = booking.id_mobil', 'left');
+        $this->db->order_by('tanggal', 'DESC');
+        $data['allbooking'] = $this->db->get()->result();
+
         // dd($data['allbooking']);
 
         $data['title'] = 'SIM Bengkel Garasinos | List Booking';
